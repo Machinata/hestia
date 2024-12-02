@@ -22,6 +22,15 @@
     // Some stricter flags (disabled by default)
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "noPropertyAccessFromIndexSignature": false
+    "noPropertyAccessFromIndexSignature": false,
+
+    // Path mapping
+    "baseUrl": ".",
+    "paths": {
+      "@app": ["./src"],
+      "@app/*": ["./src/*"],
+      "@lib": ["./lib"],
+      "@lib/*": ["./lib/*"]
+    }
   }
 }

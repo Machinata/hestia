@@ -3,11 +3,10 @@
   "module": "src/index.ts",
   "type": "module",
   "scripts": {
-    "dev": "bun src/index.ts --watch"
+    "dev": "bun --watch src/index.ts | pino-pretty"
   },
   "devDependencies": {
-    "@types/bun": "latest",
-    "@types/pino": "^7.0.5"
+    "@types/bun": "latest"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"

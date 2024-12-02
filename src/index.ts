@@ -1,8 +1,15 @@
-import { createYoga } from "graphql-yoga";
-import { schema } from "./schema";
+import { logger } from "@lib/logger";
+import { yoga } from "./yoga";
 
-const yoga = createYoga({ schema });
+const server = Bun.serve({
+  fetch: yoga.fetch,
+  error: (error) => {
+    logger.error(error.message);
+    return new Response("", {
+      status: 500,
+      statusText: "You fucked the goose",
+    });
+  },
+});
 
-const server = Bun.serve({ fetch: yoga.fetch });
-
-console.log(`Server is running on: ${server.url}${yoga.graphqlEndpoint}`);
+logger.info(`Server is running on: ${server.url}${yoga.graphqlEndpoint}`);
