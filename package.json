@@ -3,16 +3,20 @@
   "module": "src/index.ts",
   "type": "module",
   "scripts": {
-    "dev": "bun --watch src/index.ts | pino-pretty"
+    "dev": "bun --watch src/index.ts | pino-pretty",
+    "prisma:generate": "prisma generate"
   },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "prisma": "^6.0.1"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
   "dependencies": {
     "@pothos/core": "^4.3.0",
+    "@pothos/plugin-prisma": "^4.4.0",
+    "@prisma/client": "6.0.1",
     "graphql": "^16.9.0",
     "graphql-yoga": "^5.10.4",
     "pino": "^9.5.0",
