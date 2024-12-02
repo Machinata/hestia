@@ -5,15 +5,19 @@ export const logger = pino();
 
 export const yogaLogger: YogaLogger = {
   debug(...args) {
-    logger.debug("", ...args);
+    // @ts-ignore
+    logger.debug(...args);
   },
   info(...args) {
-    logger.info("", ...args);
+    // @ts-ignore
+    logger.info(...args);
   },
   warn(...args) {
-    logger.warn("", ...args);
+    // @ts-ignore
+    logger.warn(...args);
   },
   error(...args) {
-    logger.error("", ...args);
+    // @ts-ignore
+    logger.error(...args);
   },
 };
