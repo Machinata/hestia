@@ -1,27 +1,5 @@
-import SchemaBuilder from "@pothos/core";
-import PrismaPlugin, {
-  type PrismaTypesFromClient,
-} from "@pothos/plugin-prisma";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
-
-const builder = new SchemaBuilder<{
-  PrismaTypes: PrismaTypesFromClient<typeof prisma>;
-}>({
-  plugins: [PrismaPlugin],
-  prisma: {
-    client: prisma,
-    // defaults to false, uses /// comments from prisma schema as descriptions
-    // for object types, relations and exposed fields.
-    // descriptions can be omitted by setting description to false
-    exposeDescriptions: false,
-    // use where clause from prismaRelatedConnection for totalCount (defaults to true)
-    filterConnectionTotalCount: true,
-    // warn when not using a query parameter correctly
-    onUnusedQuery: process.env.NODE_ENV === "production" ? null : "warn",
-  },
-});
+import { prisma } from "@app/prisma";
+import { builder } from "./builder";
 
 const User = builder.prismaObject("User", {
   fields: (t) => ({
@@ -44,6 +22,9 @@ const Post = builder.prismaObject("Post", {
 
 builder.queryType({
   fields: (t) => ({
+    version: t.string({
+      resolve: (parent, args, context) => context.config.app_version,
+    }),
     users: t.prismaField({
       type: [User],
       resolve: async () => {

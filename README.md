@@ -19,3 +19,4 @@ bun run src/index.ts
 - **Pothos**
 - **Prisma** Database ORM
 - **Pino** Logger
+- **Zod** Schema validation
