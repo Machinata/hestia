@@ -16,7 +16,7 @@ bun run src/index.ts
 
 - **Bun** Package manager
 - **Yoga** GraphQL Server
-- **Pothos**
+- **Pothos** GQL Schema Builder
 - **Prisma** Database ORM
 - **Pino** Logger
 - **Zod** Schema validation
