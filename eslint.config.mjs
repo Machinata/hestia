@@ -1,13 +1,14 @@
-import pluginJs from '@eslint/js';
-import eslintConfigPrettier from 'eslint-config-prettier';
-import globals from 'globals';
-import tseslint from 'typescript-eslint';
+// @ts-check
 
-/** @type {import('eslint').Linter.Config[]} */
-export default [
-	{ files: ['**/*.{js,mjs,cjs,ts}'] },
-	{ languageOptions: { globals: globals.browser } },
-	pluginJs.configs.recommended,
-	...tseslint.configs.recommended,
-	eslintConfigPrettier,
-];
+import eslint from '@eslint/js';
+import tseslint from 'typescript-eslint';
+// @ts-expect-error No type-def
+import eslintConfigPrettier from 'eslint-config-prettier';
+
+export default tseslint.config(
+	{ files: ['{app,src}/**/*.{js,mjs,ts}'] },
+	{ ignores: ['build/*'] },
+	eslint.configs.recommended,
+	tseslint.configs.recommended,
+	eslintConfigPrettier
+);
