@@ -31,7 +31,7 @@
 
 <style>
 	.button {
-		@apply inline-block cursor-pointer rounded-full border-0 font-medium leading-none transition-colors;
+		@apply inline-block cursor-pointer rounded-full border-0 font-semibold leading-none transition-colors hover:opacity-80 hover:shadow-lg;
 	}
 	.button--small {
 		@apply px-2 py-0.5 text-sm;
@@ -43,9 +43,9 @@
 		@apply px-2.5 py-1 text-xl;
 	}
 	.button--primary {
-		@apply bg-rose-500 text-slate-700 hover:opacity-80;
+		@apply bg-red-600 text-white;
 	}
 	.button--secondary {
-		@apply bg-teal-600 text-white hover:opacity-80;
+		@apply bg-blue-600 text-white;
 	}
 </style>
