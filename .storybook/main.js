@@ -5,7 +5,8 @@ const config = {
 		'@storybook/addon-svelte-csf',
 		'@storybook/addon-essentials',
 		'@chromatic-com/storybook',
-		'@storybook/addon-interactions'
+		'@storybook/addon-interactions',
+		'storybook-dark-mode'
 	],
 	framework: {
 		name: '@storybook/sveltekit',

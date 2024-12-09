@@ -48,6 +48,7 @@
 		"vitest": "^2.0.4"
 	},
 	"dependencies": {
-		"@tailwindcss/typography": "^0.5.15"
+		"@tailwindcss/typography": "^0.5.15",
+		"storybook-dark-mode": "^4.0.2"
 	}
 }
