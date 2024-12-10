@@ -1,12 +1,14 @@
+import { Context } from '$lib/yoga/context';
 import SchemaBuilder from '@pothos/core';
 
-export const builder = new SchemaBuilder({});
+type ContextType = ReturnType<typeof Context>;
+
+export const builder = new SchemaBuilder<{ Context: ContextType }>({});
 
 builder.queryType({
 	fields: (t) => ({
 		version: t.string({
-			// eslint-disable-next-line @typescript-eslint/no-unused-vars
-			resolve: (parent, args, context) => '1.0.0-alpha'
+			resolve: (parent, args, context) => context.config.app_version
 		})
 	})
 });
