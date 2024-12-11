@@ -2,13 +2,15 @@ import { prisma } from '$lib/prisma';
 import type { Context } from '$lib/yoga';
 import SchemaBuilder from '@pothos/core';
 import PrismaPlugin, { type PrismaTypesFromClient } from '@pothos/plugin-prisma';
+import type { Scalars } from './Scalars';
 
-type ContextType = ReturnType<typeof Context>;
-
-export const builder = new SchemaBuilder<{
-	Context: ContextType;
+type PothosType = {
+	Context: ReturnType<typeof Context>;
 	PrismaTypes: PrismaTypesFromClient<typeof prisma>;
-}>({
+	Scalars: Scalars;
+};
+
+export const builder = new SchemaBuilder<PothosType>({
 	plugins: [PrismaPlugin],
 	prisma: {
 		client: prisma,

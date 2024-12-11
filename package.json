@@ -55,6 +55,7 @@
 		"@prisma/client": "6.0.1",
 		"@tailwindcss/typography": "^0.5.15",
 		"@types/bun": "^1.1.14",
+		"dayjs": "^1.11.13",
 		"graphql": "^16.9.0",
 		"graphql-yoga": "^5.10.4",
 		"pino": "^9.5.0",
