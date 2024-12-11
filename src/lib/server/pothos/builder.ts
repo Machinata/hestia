@@ -1,5 +1,5 @@
-import { prisma } from '$lib/prisma';
-import type { Context } from '$lib/yoga';
+import { prisma } from '$lib/server/prisma';
+import type { Context } from '$lib/server/yoga';
 import SchemaBuilder from '@pothos/core';
 import PrismaPlugin, { type PrismaTypesFromClient } from '@pothos/plugin-prisma';
 import type { Scalars } from './Scalars';
