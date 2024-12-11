@@ -19,5 +19,5 @@ export const yogaLogger: YogaLogger = {
 	error(...args) {
 		// @ts-expect-error types dont match
 		logger.error(...args);
-	},
+	}
 };

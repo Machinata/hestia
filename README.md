@@ -1,22 +1,38 @@
-# Hestia
+# sv
 
-To install dependencies:
+Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
 
-```bash
-bun install
-```
+## Creating a project
 
-To run:
+If you're seeing this, you've probably already done this step. Congrats!
 
 ```bash
-bun run src/index.ts
+# create a new project in the current directory
+bunx sv create
+
+# create a new project in my-app
+bunx sv create my-app
 ```
 
-## Stack
+## Developing
 
-- **Bun** Package manager
-- **Yoga** GraphQL Server
-- **Pothos** GraphQL Schema Builder
-- **Prisma** Database ORM
-- **Pino** Logger
-- **Zod** Schema validation
+Once you've created a project and installed dependencies with `bun install`, start a development server:
+
+```bash
+bun run dev
+
+# or start the server and open the app in a new browser tab
+bun run dev -- --open
+```
+
+## Building
+
+To create a production version of your app:
+
+```bash
+bun run build
+```
+
+You can preview the production build with `bun run preview`.
+
+> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.

@@ -1,4 +1,4 @@
-import { logger } from '@lib/logger';
+import { logger } from '$lib/logger';
 import { z } from 'zod';
 
 export interface Configuration {
@@ -8,15 +8,17 @@ export interface Configuration {
 export const LoadConfig = (): Configuration => {
 	const { success, data, error } = z
 		.object({
-			APP_VERSION: z.string().default('development'),
+			VITE_APP_VERSION: z.string().default('development')
 		})
-		.safeParse(process.env);
+		.safeParse(import.meta.env);
 
 	if (!success) {
 		logger.error(error.message);
 	}
 
 	return {
-		app_version: data!.APP_VERSION,
+		app_version: data!.VITE_APP_VERSION
 	};
 };
+
+export const Config = LoadConfig();
