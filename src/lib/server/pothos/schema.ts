@@ -6,7 +6,13 @@ const User = builder.prismaObject('User', {
 		id: t.exposeID('id'),
 		email: t.exposeString('email'),
 		name: t.exposeString('name'),
-		posts: t.relation('posts')
+		posts: t.relation('posts'),
+		createdAt: t.expose('createdAt', {
+			type: 'Date'
+		}),
+		updatedAt: t.expose('updatedAt', {
+			type: 'Date'
+		})
 	})
 });
 
@@ -16,7 +22,13 @@ const Post = builder.prismaObject('Post', {
 		title: t.exposeString('title'),
 		content: t.exposeString('content'),
 		published: t.exposeBoolean('published'),
-		author: t.relation('author')
+		author: t.relation('author'),
+		createdAt: t.expose('createdAt', {
+			type: 'Date'
+		}),
+		updatedAt: t.expose('updatedAt', {
+			type: 'Date'
+		})
 	})
 });
 
