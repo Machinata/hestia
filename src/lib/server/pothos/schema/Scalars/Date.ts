@@ -1,4 +1,4 @@
-import { builder } from '../builder';
+import { builder } from '../../builder';
 
 export const DateScalar = builder.scalarType('Date', {
 	description: 'Date Scalar in ISO format',
