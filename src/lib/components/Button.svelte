@@ -9,12 +9,12 @@
 		backgroundColor,
 		primary = false
 	}: {
-		type: HTMLButtonAttributes['type'];
-		onClick: () => void;
+		type?: HTMLButtonAttributes['type'];
+		onClick?: () => void;
 		label: string;
-		size: 'small' | 'normal' | 'large';
-		backgroundColor: string;
-		primary: boolean;
+		size?: 'small' | 'normal' | 'large';
+		backgroundColor?: string;
+		primary?: boolean;
 	} = $props();
 </script>
 
