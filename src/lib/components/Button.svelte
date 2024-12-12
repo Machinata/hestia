@@ -31,7 +31,7 @@
 
 <style>
 	.button {
-		@apply inline-block cursor-pointer rounded-full border-0 font-semibold leading-none transition-colors hover:opacity-80 hover:shadow-lg;
+		@apply inline-block cursor-pointer rounded-lg border-0 font-semibold leading-none transition-colors hover:opacity-80 hover:shadow-lg;
 	}
 	.button--small {
 		@apply px-2 py-0.5 text-sm;
