@@ -1,14 +1,17 @@
 <script lang="ts">
-	import type { HTMLInputTypeAttribute } from 'svelte/elements';
+	import type { HTMLAttributes, HTMLInputTypeAttribute } from 'svelte/elements';
+	import { twMerge } from 'tailwind-merge';
 
-	let {
-		label,
-		name,
-		type = 'text'
-	}: { label?: string; name: string; type?: HTMLInputTypeAttribute } = $props();
+	type InputProps = {
+		label?: string;
+		name: string;
+		type?: HTMLInputTypeAttribute;
+	} & HTMLAttributes<HTMLDivElement>;
+
+	let { label, name, type = 'text', ...props }: InputProps = $props();
 </script>
 
-<div class="hestia-input">
+<div {...props} class={twMerge('hestia-input', props.class)}>
 	{#if label}
 		<label for={name}>{label}</label>
 		<div class="line"></div>
