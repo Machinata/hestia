@@ -3,4 +3,12 @@
 	let { children } = $props();
 </script>
 
-{@render children()}
+<div class="layout">
+	{@render children()}
+</div>
+
+<style>
+	.layout {
+		@apply h-screen w-screen bg-slate-100;
+	}
+</style>
