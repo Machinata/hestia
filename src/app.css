@@ -2,11 +2,8 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-h1,
-h2,
-h3,
-h4 {
-	@apply text-slate-700;
+:root {
+	@apply text-slate-800;
 }
 
 h1 {
