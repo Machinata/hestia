@@ -6,7 +6,7 @@ export const actions = {
 	login: async (event) => {
 		const form = await event.request.formData();
 		if (!form.has('email')) {
-			error(400, 'Email is a required form field!');
+			return error(400, 'Email is a required form field!');
 		}
 		const user = await prisma.user.findUnique({
 			where: {
@@ -15,9 +15,8 @@ export const actions = {
 		});
 		if (!user) {
 			logger.error('User not found! ${user}');
-			error(401);
+			return error(401);
 		}
-		logger.info(`Login user { email: ${form.get('email')} }`);
 		event.cookies.set('user', String(user.id), {
 			path: '/',
 			maxAge: 120
@@ -26,13 +25,22 @@ export const actions = {
 	},
 	register: async (event) => {
 		const form = await event.request.formData();
-		// const user = prisma.user.create({
-		// 	data: {
-		// 		email,
-		// 		name
-		// 	}
-		// });
-		logger.info(`Login user { email: ${form.get('email')}, name: ${form.get('name')} }`);
+		if (!form.has('email') || !form.has('name')) {
+			return error(400);
+		}
+		const user = await prisma.user.create({
+			data: {
+				email: form.get('email') as string,
+				name: form.get('name') as string
+			}
+		});
+		if (!user) {
+			return error(500);
+		}
+		event.cookies.set('user', String(user.id), {
+			path: '/',
+			maxAge: 120
+		});
 		redirect(302, '/');
 	}
 } satisfies Actions;
