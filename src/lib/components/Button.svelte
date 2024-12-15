@@ -9,12 +9,12 @@
 		backgroundColor,
 		primary = false
 	}: {
-		type: HTMLButtonAttributes['type'];
-		onClick: () => void;
+		type?: HTMLButtonAttributes['type'];
+		onClick?: () => void;
 		label: string;
-		size: 'small' | 'normal' | 'large';
-		backgroundColor: string;
-		primary: boolean;
+		size?: 'small' | 'normal' | 'large';
+		backgroundColor?: string;
+		primary?: boolean;
 	} = $props();
 </script>
 
@@ -31,7 +31,7 @@
 
 <style>
 	.button {
-		@apply inline-block cursor-pointer rounded-full border-0 font-semibold leading-none transition-colors hover:opacity-80 hover:shadow-lg;
+		@apply inline-block cursor-pointer rounded-lg border-0 font-semibold leading-none transition-colors hover:opacity-80 hover:shadow-lg;
 	}
 	.button--small {
 		@apply px-2 py-0.5 text-sm;
@@ -40,7 +40,7 @@
 		@apply px-2 py-1 text-base;
 	}
 	.button--large {
-		@apply px-2.5 py-1 text-xl;
+		@apply px-3 py-1.5 text-lg;
 	}
 	.button--primary {
 		@apply bg-red-600 text-white;
