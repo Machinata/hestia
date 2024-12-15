@@ -1,5 +1,5 @@
-import { yogaLogger } from '$lib/logger';
-import { Schema } from '$lib/pothos';
+import { yogaLogger } from '$lib/server/logger';
+import { Schema } from '$lib/server/pothos';
 import type { RequestEvent } from '@sveltejs/kit';
 import { createYoga } from 'graphql-yoga';
 import { Context } from './context';

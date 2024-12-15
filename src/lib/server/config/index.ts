@@ -1,4 +1,4 @@
-import { logger } from '$lib/logger';
+import { logger } from '$lib/server/logger';
 import { z } from 'zod';
 
 export interface Configuration {
