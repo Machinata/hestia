@@ -1,15 +1,16 @@
 import { prisma } from '$lib/server/prisma';
+import type { Session } from 'lucia';
 
-export async function load(event) {
-	const userId = event.cookies.get('user');
-	if (!userId && isNaN(Number(userId))) {
+export async function load(event: Session) {
+	const userId = event.userId;
+	if (!userId) {
 		return {
 			authenticated: false
 		};
 	}
 	const user = await prisma.user.findUnique({
 		where: {
-			id: Number(userId)
+			id: userId
 		}
 	});
 	return {
