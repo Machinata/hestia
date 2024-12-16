@@ -1,3 +1,4 @@
+import { version } from '$app/environment';
 import { builder } from '../builder';
 
 builder.queryType({});
@@ -5,7 +6,7 @@ builder.queryType({});
 builder.queryField('version', (t) =>
 	t.string({
 		description: 'Application version',
-		resolve: (parent, args, context) => context.config.app_version,
+		resolve: () => version
 	})
 );
 
