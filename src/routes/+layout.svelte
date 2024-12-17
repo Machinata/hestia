@@ -9,6 +9,6 @@
 
 <style>
 	.layout {
-		@apply h-screen w-screen animate-fade bg-slate-100;
+		@apply h-screen w-screen animate-fade bg-base-100;
 	}
 </style>
