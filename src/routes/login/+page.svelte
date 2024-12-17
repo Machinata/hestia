@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Button from '$lib/components/Button.svelte';
-	import Input from '$lib/components/Input.svelte';
+	import TextInput from '$lib/components/TextInput.svelte';
 	import { fade, scale } from 'svelte/transition';
 
 	let mode: 'register' | 'login' = $state('login');
@@ -18,11 +18,11 @@
 			<h2 transition:fade>{mode === 'login' ? 'Login' : 'Register'}</h2>
 			{#if mode === 'register'}
 				<div transition:fade>
-					<Input label="Name" name="name" />
+					<TextInput label="Name" name="name" />
 				</div>
 			{/if}
-			<Input label="Email" name="email" type="email" />
-			<Input label="Password" name="password" type="password" />
+			<TextInput label="Email" name="email" type="email" />
+			<TextInput label="Password" name="password" type="password" />
 			<div class="flex gap-2">
 				<Button
 					onClick={onViewToggle}
