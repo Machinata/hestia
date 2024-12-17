@@ -3,7 +3,7 @@
 @import 'tailwindcss/utilities';
 
 :root {
-	@apply text-slate-800;
+	@apply text-base-content;
 }
 
 h1 {
