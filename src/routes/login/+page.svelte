@@ -24,13 +24,8 @@
 			<TextInput label="Email" name="email" type="email" />
 			<TextInput label="Password" name="password" type="password" />
 			<div class="flex gap-2">
-				<Button
-					onClick={onViewToggle}
-					label={mode === 'login' ? 'Register' : 'Login'}
-					size="large"
-					primary
-				/>
-				<Button type="submit" label="Submit" size="large" />
+				<Button onClick={onViewToggle} label={mode === 'login' ? 'Register' : 'Login'} />
+				<Button type="submit" label="Submit" />
 			</div>
 		</form>
 	</div>

@@ -11,20 +11,35 @@
 			onClick: fn()
 		},
 		argTypes: {
+			color: {
+				control: 'select',
+				options: [
+					'neutral',
+					'primary',
+					'secondary',
+					'accent',
+					'ghost',
+					'link',
+					'info',
+					'success',
+					'warning',
+					'error'
+				]
+			},
+			outline: {
+				control: 'boolean'
+			},
 			size: {
 				control: 'select',
-				options: ['small', 'normal', 'large'],
-				defaultValue: 'normal'
+				options: ['Default', 'xs', 'sm', 'lg'],
+				defaultValue: 'Default'
 			},
-			backgroundColor: {
-				control: 'color'
-			},
-			primary: {
-				control: 'boolean',
-				defaultValue: true
+			type: {
+				control: 'select',
+				options: ['button', 'reset', 'submit']
 			}
 		}
 	});
 </script>
 
-<Story name="Default" args={{ label: 'Button', size: 'normal', primary: true }} />
+<Story name="Default" args={{ label: 'Button', color: 'primary' }} />
