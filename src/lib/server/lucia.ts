@@ -2,8 +2,7 @@ import { Lucia } from 'lucia';
 import { PrismaAdapter } from '@lucia-auth/adapter-prisma';
 import { prisma } from '$lib/server/prisma';
 
-const client = prisma;
-const adapter = new PrismaAdapter(client.session, client.user);
+const adapter = new PrismaAdapter(prisma.session, prisma.user);
 // expect error (see next section)
 export const auth = new Lucia(adapter, {
 	sessionCookie: {
