@@ -1,6 +1,8 @@
 import { logger } from '$lib/server/logger';
 import { prisma } from '$lib/server/prisma';
 import { error, redirect, type Actions } from '@sveltejs/kit';
+import { Argon2id } from 'oslo/password';
+import { auth } from '$lib/server/lucia.js';
 
 export const actions = {
 	login: async (event) => {
@@ -17,27 +19,43 @@ export const actions = {
 			logger.error('User not found! ${user}');
 			return error(401);
 		}
-		event.cookies.set('user', String(user.id), {
+		const password = form.get('password') as string;
+		if (!password) {
+			return error(401, 'Password is required');
+		}
+		const validPassword = await new Argon2id().verify(user.password, password);
+		if (!validPassword) {
+			return error(400, 'Password is incorrect!');
+		}
+		const session = await auth.createSession(user.id, []);
+		const sessionCookie = auth.createSessionCookie(session.id);
+		event.cookies.set(sessionCookie.name, sessionCookie.value, {
 			path: '/',
 			maxAge: 120
 		});
 		redirect(302, '/');
 	},
+
 	register: async (event) => {
 		const form = await event.request.formData();
-		if (!form.has('email') || !form.has('name')) {
+		if (!form.has('email') || !form.has('name') || !form.has('password')) {
 			return error(400);
 		}
+		const password = form.get('password') as string;
+		const hashedPassword = await new Argon2id().hash(password);
 		const user = await prisma.user.create({
 			data: {
 				email: form.get('email') as string,
-				name: form.get('name') as string
+				name: form.get('name') as string,
+				password: hashedPassword
 			}
 		});
+		const session = await auth.createSession(user.id.toString(), {});
+		const sessionCookie = auth.createSessionCookie(session.id);
 		if (!user) {
 			return error(500);
 		}
-		event.cookies.set('user', String(user.id), {
+		event.cookies.set(sessionCookie.name, sessionCookie.value, {
 			path: '/',
 			maxAge: 120
 		});

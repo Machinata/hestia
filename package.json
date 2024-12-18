@@ -52,6 +52,7 @@
 		"vitest": "^2.0.4"
 	},
 	"dependencies": {
+		"@lucia-auth/adapter-prisma": "^4.0.1",
 		"@pothos/core": "^4.3.0",
 		"@pothos/plugin-prisma": "^4.4.0",
 		"@prisma/client": "6.0.1",
@@ -59,6 +60,8 @@
 		"dayjs": "^1.11.13",
 		"graphql": "^16.9.0",
 		"graphql-yoga": "^5.10.4",
+		"lucia": "^3.2.2",
+		"oslo": "^1.2.1",
 		"pino": "^9.5.0",
 		"pino-pretty": "^13.0.0",
 		"tailwind-merge": "^2.5.5",
