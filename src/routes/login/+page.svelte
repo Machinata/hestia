@@ -11,18 +11,28 @@
 	}
 </script>
 
+{#snippet userIcon()}
+	<i class="fi fi-br-envelope"></i>
+{/snippet}
+
+{#snippet passwordIcon()}
+	<i class="fi fi-br-key"></i>
+{/snippet}
+
+{#snippet nameIcon()}
+	<i class="fi fi-rr-user"></i>
+{/snippet}
+
 <div class="page">
 	<h1 class="underline">Hestia</h1>
 	<div class="login">
 		<form method="POST" {action} transition:scale>
 			<h2 transition:fade>{mode === 'login' ? 'Login' : 'Register'}</h2>
+			<TextInput start={userIcon} placeholder="Email" name="email" type="email" />
+			<TextInput start={passwordIcon} placeholder="Password" name="password" type="password" />
 			{#if mode === 'register'}
-				<div transition:fade>
-					<TextInput label="Name" name="name" />
-				</div>
+				<TextInput start={nameIcon} placeholder="Name" name="name" fade />
 			{/if}
-			<TextInput label="Email" name="email" type="email" />
-			<TextInput label="Password" name="password" type="password" />
 			<div class="flex gap-2">
 				<Button onClick={onViewToggle} label={mode === 'login' ? 'Register' : 'Login'} />
 				<Button type="submit" label="Submit" />
