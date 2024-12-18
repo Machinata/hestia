@@ -1,51 +1,54 @@
 <script lang="ts">
+	import type { DaisyColor, DaisySize } from '$lib/types';
 	import type { HTMLButtonAttributes } from 'svelte/elements';
 
-	let {
-		type = 'button',
-		onClick,
-		label,
-		size = 'normal',
-		backgroundColor,
-		primary = false
-	}: {
-		type?: HTMLButtonAttributes['type'];
-		onClick?: () => void;
+	interface Props {
+		color?: DaisyColor;
+		glass?: boolean;
 		label: string;
-		size?: 'small' | 'normal' | 'large';
-		backgroundColor?: string;
-		primary?: boolean;
-	} = $props();
+		outline?: boolean;
+		onClick?: () => void;
+		responsive?: boolean;
+		size?: DaisySize;
+		type?: HTMLButtonAttributes['type'];
+		wide?: boolean;
+	}
+
+	let {
+		color,
+		glass = false,
+		label,
+		outline = false,
+		onClick,
+		responsive = false,
+		size,
+		type = 'button',
+		wide = false
+	}: Props = $props();
 </script>
 
 <button
 	{type}
 	onclick={onClick}
-	class={`button button--${size}`}
-	style:background-color={backgroundColor}
-	class:button--primary={primary}
-	class:button--secondary={!primary}
+	class:btn-outline={outline}
+	class:btn-wide={wide}
+	class:glass
+	class:btn-xs={size === 'xs'}
+	class:btn-sm={size === 'sm'}
+	class:btn-lg={size === 'lg'}
+	class:btn-neutral={color === 'neutral'}
+	class:btn-primary={color === 'primary'}
+	class:btn-secondary={color === 'secondary'}
+	class:btn-accent={color === 'accent'}
+	class:btn-ghost={color === 'ghost'}
+	class:btn-link={color === 'link'}
+	class:btn-info={color === 'info'}
+	class:btn-success={color === 'success'}
+	class:btn-warning={color === 'warning'}
+	class:btn-error={color === 'error'}
+	class={`btn ${responsive && 'btn-xs sm:btn-sm md:btn-md lg:btn-lg'}`}
 >
 	{label}
 </button>
 
-<style>
-	.button {
-		@apply inline-block cursor-pointer rounded-lg border-0 font-semibold leading-none transition-colors hover:opacity-80 hover:shadow-lg;
-	}
-	.button--small {
-		@apply px-2 py-0.5 text-sm;
-	}
-	.button--normal {
-		@apply px-2 py-1 text-base;
-	}
-	.button--large {
-		@apply px-3 py-1.5 text-lg;
-	}
-	.button--primary {
-		@apply bg-red-600 text-white;
-	}
-	.button--secondary {
-		@apply bg-blue-600 text-white;
-	}
-</style>
+<style></style>
