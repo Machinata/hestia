@@ -1,6 +1,6 @@
 import { prisma } from '$lib/server/prisma';
-import type { Session } from 'lucia';
-export async function load(event: Session) {
+export async function load(event) {
+	console.log(event.userId);
 	const userId = event.userId;
 	if (!userId) {
 		return {

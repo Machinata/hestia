@@ -30,7 +30,7 @@ model Session {
   id           String   @id @default(uuid())
   expiresAt    DateTime
   createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  updatedAt    DateTime @default(now()) @updatedAt
   userId       String
   user         User     @relation(references: [id], fields: [userId])
 }
@@ -41,7 +41,7 @@ model Post {
   title     String
   content   String
   published Boolean? @default(false)
-  author    User     @relation(fields: [authorId], references: [id])
+  author    User     @relation(references: [id], fields: [authorId])
   authorId  String
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
