@@ -33,7 +33,7 @@ export const actions = {
 			path: '/',
 			maxAge: 120
 		});
-		redirect(302, '/');
+		redirect(302, '/app');
 	},
 
 	register: async (event) => {
@@ -59,6 +59,6 @@ export const actions = {
 			path: '/',
 			maxAge: 120
 		});
-		redirect(302, '/');
+		redirect(302, '/app');
 	}
 } satisfies Actions;
