@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import Loader from '$lib/components/Loader.svelte';
+	import { fade } from 'svelte/transition';
 
 	let { data } = $props();
 
@@ -12,8 +13,7 @@
 	});
 </script>
 
-<div class="site-loader">
-	<h1>Hestia</h1>
+<div class="site-loader" transition:fade>
 	<Loader />
 </div>
 
