@@ -1,14 +1,11 @@
 <script lang="ts">
 	import Button from '$lib/components/Button.svelte';
+	import Container from '$lib/components/common/Container.svelte';
 	import TextInput from '$lib/components/TextInput.svelte';
-	import { fade, scale } from 'svelte/transition';
+	import { fade } from 'svelte/transition';
 
 	let mode: 'register' | 'login' = $state('login');
 	let action = $derived(mode === 'login' ? '?/login' : '?/register');
-
-	function onViewToggle() {
-		mode = mode === 'login' ? 'register' : 'login';
-	}
 </script>
 
 {#snippet userIcon()}
@@ -23,32 +20,43 @@
 	<i class="fi fi-rr-user"></i>
 {/snippet}
 
-<div class="page">
-	<h1 class="underline">Hestia</h1>
-	<div class="login">
-		<form method="POST" {action} transition:scale>
-			<h2 transition:fade>{mode === 'login' ? 'Login' : 'Register'}</h2>
+<div class="page" transition:fade>
+	<Container>
+		<form class="flex w-full flex-col items-center gap-6" method="POST" {action}>
+			<h1 class="text-3xl">Hestia</h1>
+			<br />
+			<div role="tablist" class="tabs tabs-bordered tabs-lg w-full">
+				<button
+					type="button"
+					role="tab"
+					class="tab"
+					class:tab-active={mode === 'login'}
+					onclick={() => {
+						mode = 'login';
+					}}>Login</button
+				>
+				<button
+					type="button"
+					role="tab"
+					class="tab"
+					class:tab-active={mode === 'register'}
+					onclick={() => {
+						mode = 'register';
+					}}>Register</button
+				>
+			</div>
 			<TextInput start={userIcon} placeholder="Email" name="email" type="email" />
 			<TextInput start={passwordIcon} placeholder="Password" name="password" type="password" />
 			{#if mode === 'register'}
 				<TextInput start={nameIcon} placeholder="Name" name="name" fade />
 			{/if}
-			<div class="flex gap-2">
-				<Button onClick={onViewToggle} label={mode === 'login' ? 'Register' : 'Login'} />
-				<Button type="submit" label="Submit" />
-			</div>
+			<Button block type="submit" label="Submit" outline />
 		</form>
-	</div>
+	</Container>
 </div>
 
 <style>
 	.page {
 		@apply flex flex-col items-center justify-around gap-24 py-[10%];
-	}
-	.login {
-		@apply w-fit max-w-lg animate-fade rounded-lg bg-white p-8;
-	}
-	.login > form {
-		@apply flex w-full flex-col items-center gap-8 rounded-lg;
 	}
 </style>

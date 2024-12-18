@@ -3,6 +3,7 @@
 	import type { HTMLButtonAttributes } from 'svelte/elements';
 
 	interface Props {
+		block?: boolean;
 		color?: DaisyColor;
 		glass?: boolean;
 		label: string;
@@ -15,6 +16,7 @@
 	}
 
 	let {
+		block = false,
 		color,
 		glass = false,
 		label,
@@ -31,6 +33,7 @@
 	{type}
 	onclick={onClick}
 	class:btn-outline={outline}
+	class:btn-block={block}
 	class:btn-wide={wide}
 	class:glass
 	class:btn-xs={size === 'xs'}
