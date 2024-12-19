@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import Loader from '$lib/components/Loader.svelte';
+	import Loader from '$lib/components/common/Loader';
 	import { fade } from 'svelte/transition';
 
 	let { data } = $props();
