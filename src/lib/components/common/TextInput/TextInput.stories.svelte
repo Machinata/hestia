@@ -3,7 +3,7 @@
 	import TextInput from './TextInput.svelte';
 
 	const { Story } = defineMeta({
-		title: 'TextInput',
+		title: 'Data Input/Text Input',
 		component: TextInput,
 		argTypes: {
 			color: {

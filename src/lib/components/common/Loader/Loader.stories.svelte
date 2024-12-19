@@ -3,7 +3,7 @@
 	import Loader from './Loader.svelte';
 
 	const { Story } = defineMeta({
-		title: 'Loader',
+		title: 'Feedback/Loader',
 		component: Loader
 	});
 </script>
