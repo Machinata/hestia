@@ -6,7 +6,6 @@
 	const { Story } = defineMeta({
 		title: 'Button',
 		component: Button,
-		tags: ['autodocs'],
 		args: {
 			onClick: fn()
 		},
