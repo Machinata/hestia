@@ -4,7 +4,7 @@
 	import { fn } from '@storybook/test';
 
 	const { Story } = defineMeta({
-		title: 'Button',
+		title: 'Actions/Button',
 		component: Button,
 		args: {
 			onClick: fn()
