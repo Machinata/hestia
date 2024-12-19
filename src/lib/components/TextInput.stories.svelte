@@ -5,7 +5,6 @@
 	const { Story } = defineMeta({
 		title: 'TextInput',
 		component: TextInput,
-		tags: ['autodocs'],
 		argTypes: {
 			color: {
 				control: 'select',

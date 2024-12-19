@@ -4,8 +4,7 @@
 
 	const { Story } = defineMeta({
 		title: 'Navbar',
-		component: Navbar,
-		tags: ['autodocs']
+		component: Navbar
 	});
 </script>
 

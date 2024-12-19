@@ -3,6 +3,7 @@ import './preview.css';
 
 /** @type { import('@storybook/svelte').Preview } */
 const preview = {
+	tags: ['autodocs'],
 	parameters: {
 		controls: {
 			matchers: {
