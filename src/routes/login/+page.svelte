@@ -2,10 +2,10 @@
 	import Button from '$lib/components/Button.svelte';
 	import Container from '$lib/components/common/Container.svelte';
 	import TextInput from '$lib/components/TextInput.svelte';
+	import Tabs from '$lib/components/common/Tabs';
 	import { fade } from 'svelte/transition';
 
-	let mode: 'register' | 'login' = $state('login');
-	let action = $derived(mode === 'login' ? '?/login' : '?/register');
+	let tab: 0 | 1 = $state(0);
 </script>
 
 {#snippet userIcon()}
@@ -20,38 +20,21 @@
 	<i class="fi fi-rr-user"></i>
 {/snippet}
 
+{#snippet form(variant: 'login' | 'register')}
+	<form class="flex w-full flex-col items-center gap-6" method="POST" action={`?/${variant}`}>
+		<TextInput start={userIcon} placeholder="Email" name="email" type="email" />
+		<TextInput start={passwordIcon} placeholder="Password" name="password" type="password" />
+		{#if variant === 'register'}
+			<TextInput start={nameIcon} placeholder="Name" name="name" fade />
+		{/if}
+		<Button block type="submit" label="Submit" outline />
+	</form>
+{/snippet}
+
 <div class="page" transition:fade>
 	<Container>
-		<form class="flex w-full flex-col items-center gap-6" method="POST" {action}>
-			<h1 class="text-3xl">Hestia</h1>
-			<br />
-			<div role="tablist" class="tabs tabs-bordered tabs-lg w-full">
-				<button
-					type="button"
-					role="tab"
-					class="tab"
-					class:tab-active={mode === 'login'}
-					onclick={() => {
-						mode = 'login';
-					}}>Login</button
-				>
-				<button
-					type="button"
-					role="tab"
-					class="tab"
-					class:tab-active={mode === 'register'}
-					onclick={() => {
-						mode = 'register';
-					}}>Register</button
-				>
-			</div>
-			<TextInput start={userIcon} placeholder="Email" name="email" type="email" />
-			<TextInput start={passwordIcon} placeholder="Password" name="password" type="password" />
-			{#if mode === 'register'}
-				<TextInput start={nameIcon} placeholder="Name" name="name" fade />
-			{/if}
-			<Button block type="submit" label="Submit" outline />
-		</form>
+		<Tabs variant="bordered" bind:selected={tab} tabs={['Login', 'Register']} />
+		{@render form(tab === 0 ? 'login' : 'register')}
 	</Container>
 </div>
 
