@@ -1,8 +1,8 @@
 <script lang="ts">
 	import Button from '$lib/components/Button.svelte';
 	import Container from '$lib/components/common/Container.svelte';
-	import TextInput from '$lib/components/TextInput.svelte';
 	import Tabs from '$lib/components/common/Tabs';
+	import TextInput from '$lib/components/common/TextInput';
 	import { fade } from 'svelte/transition';
 
 	let tab: 0 | 1 = $state(0);
