@@ -7,6 +7,9 @@ Hestia is an early stage project
 ```bash
 # install dependencies
 bun install
+
+# set up local database
+bun prisma:dev
 ```
 
 ## Developing
@@ -21,7 +24,12 @@ bun dev -- --open
 
 # to use storybook for components development
 bun storybook
+
+# interact with local database
+bun prisma:studio
 ```
+
+> You can access the Yoga web-app at `/api/graphql`
 
 ## Building
 
