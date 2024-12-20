@@ -15,9 +15,10 @@
 		"storybook": "storybook dev -p 6006",
 		"build-storybook": "storybook build",
 		"test:e2e": "playwright test",
-		"prisma:push": "prisma db push",
+		"prisma:dev": "prisma migrate dev",
 		"prisma:format": "prisma format",
 		"prisma:generate": "prisma generate",
+		"prisma:push": "prisma db push",
 		"prisma:reset": "prisma migrate reset --force",
 		"prisma:studio": "prisma studio"
 	},
