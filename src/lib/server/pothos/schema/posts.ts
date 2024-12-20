@@ -61,7 +61,7 @@ builder.mutationFields((t) => ({
 		},
 		resolve: async (parent, args) => {
 			const author = await prisma.user.findUnique({
-				where: { id: Number(args.input.authorId) },
+				where: { id: args.input.authorId },
 			});
 			if (!author) {
 				throw new Error('Author does not exist!');
@@ -89,7 +89,7 @@ builder.mutationFields((t) => ({
 		resolve: async (parent, args) => {
 			const post = await prisma.post.update({
 				where: {
-					id: Number(args.input.id),
+					id: args.input.id,
 				},
 				data: {
 					title: args.input.title ?? undefined,
@@ -98,7 +98,7 @@ builder.mutationFields((t) => ({
 					...(args.input.authorId && {
 						author: {
 							connect: {
-								id: Number(args.input.authorId),
+								id: args.input.authorId,
 							},
 						},
 					}),
