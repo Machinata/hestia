@@ -5,11 +5,13 @@
 
 	type Props = {
 		children: Snippet;
-		data: Omit<User, 'password'>;
+		data: {
+			user: Omit<User, 'password'>;
+		};
 	};
 
 	let { children, data }: Props = $props();
 </script>
 
-<Navbar title="Svelte" username={data.name} />
+<Navbar title="Svelte" username={data.user.name} />
 {@render children()}

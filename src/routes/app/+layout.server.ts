@@ -20,5 +20,7 @@ export async function load(event) {
 	}
 
 	const { password: _, ...rest } = session.user;
-	return rest;
+	return {
+		user: rest,
+	};
 }
