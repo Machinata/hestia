@@ -15,8 +15,10 @@
 		"storybook": "storybook dev -p 6006",
 		"build-storybook": "storybook build",
 		"test:e2e": "playwright test",
+		"prisma:push": "prisma db push",
+		"prisma:format": "prisma format",
 		"prisma:generate": "prisma generate",
-		"prisma:dev": "prisma migrate dev",
+		"prisma:reset": "prisma migrate reset --force",
 		"prisma:studio": "prisma studio"
 	},
 	"devDependencies": {
@@ -57,7 +59,7 @@
 	},
 	"dependencies": {
 		"@flaticon/flaticon-uicons": "^3.3.1",
-    "@lucia-auth/adapter-prisma": "^4.0.1",
+		"@lucia-auth/adapter-prisma": "^4.0.1",
 		"@pothos/core": "^4.3.0",
 		"@pothos/plugin-prisma": "^4.4.0",
 		"@prisma/client": "6.0.1",
