@@ -3,10 +3,8 @@
 	import Loader from '$lib/components/common/Loader';
 	import { fade } from 'svelte/transition';
 
-	let { data } = $props();
-
 	$effect(() => {
-		const id = setTimeout(() => (data.authenticated ? goto('/app') : goto('/login')), 1500);
+		const id = setTimeout(() => goto('/app'), 1500);
 		return () => {
 			clearTimeout(id);
 		};

@@ -1,17 +1,17 @@
 import { prisma } from '$lib/server/prisma';
+import { redirect } from '@sveltejs/kit';
 export async function load(event) {
-	const userId = event.cookies.get('user');
-	if (!userId) {
-		return {
-			authenticated: false,
-		};
+	const sessionId = event.cookies.get('auth_session');
+	if (!sessionId) {
+		redirect(303, '/login');
 	}
-	const user = await prisma.user.findUnique({
+	const user = await prisma.session.findUnique({
 		where: {
-			id: userId,
+			id: sessionId,
 		},
 	});
-	return {
-		authenticated: !!user,
-	};
+	if (!user) {
+		redirect(401, '/login');
+	}
+	return {};
 }
