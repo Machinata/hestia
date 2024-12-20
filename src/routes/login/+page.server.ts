@@ -1,31 +1,40 @@
+import { messages } from '$lib/i18n';
+import { email_inuse } from '$lib/paraglide/messages';
 import { logger } from '$lib/server/logger';
-import { prisma } from '$lib/server/prisma';
-import { error, redirect, type Actions } from '@sveltejs/kit';
-import { Argon2id } from 'oslo/password';
 import { auth } from '$lib/server/lucia.js';
+import { prisma } from '$lib/server/prisma';
+import { fail, redirect, type Actions } from '@sveltejs/kit';
+import { Argon2id } from 'oslo/password';
+import { string } from 'zod';
 
 export const actions = {
 	login: async (event) => {
 		const form = await event.request.formData();
-		if (!form.has('email')) {
-			return error(400, 'Email is a required form field!');
+		const email = form.get('email');
+		if (typeof email !== 'string') {
+			return fail(400, { email: { error: messages.email_required() } });
 		}
+
+		const password = form.get('password') as string;
+		if (!password) {
+			return fail(400, { password: { error: messages.password_required() } });
+		}
+
 		const user = await prisma.user.findUnique({
 			where: {
-				email: form.get('email') as string,
+				email: email,
 			},
 		});
 		if (!user) {
-			logger.error('User not found! ${user}');
-			return error(401);
+			logger.error(`User not found! ${email}`);
+			return fail(404, { email: { value: email, error: messages.user_not_found() } });
 		}
-		const password = form.get('password') as string;
-		if (!password) {
-			return error(401, 'Password is required');
-		}
+
 		const validPassword = await new Argon2id().verify(user.password, password);
 		if (!validPassword) {
-			return error(400, 'Password is incorrect!');
+			return fail(400, {
+				password: { error: messages.password_incorrect() },
+			});
 		}
 		const session = await auth.createSession(user.id, []);
 		const sessionCookie = auth.createSessionCookie(session.id);
@@ -38,10 +47,29 @@ export const actions = {
 
 	register: async (event) => {
 		const form = await event.request.formData();
-		if (!form.has('email') || !form.has('name') || !form.has('password')) {
-			return error(400);
+		if (!form.has('email')) {
+			return fail(400, { email: { error: messages.email_required() } });
 		}
-		const password = form.get('password') as string;
+		const { success, data: email, error } = string().email().safeParse(form.get('email'));
+		if (!success) {
+			logger.error(error);
+			return fail(400, { email: { value: email, error: messages.email_incorrect() } });
+		}
+
+		const password = form.get('password');
+		if (typeof password !== 'string') {
+			return fail(400, { password: { error: messages.password_required() } });
+		}
+		const name = form.get('name');
+		if (typeof name !== 'string') {
+			return fail(400, { name: { error: messages.name_required() } });
+		}
+
+		const usersWithEmail = await prisma.user.count({ where: { email: email } });
+		if (usersWithEmail !== 0) {
+			return fail(409, { email: { value: email, error: email_inuse() } });
+		}
+
 		const hashedPassword = await new Argon2id().hash(password);
 		const user = await prisma.user.create({
 			data: {
@@ -50,15 +78,14 @@ export const actions = {
 				password: hashedPassword,
 			},
 		});
+
 		const session = await auth.createSession(user.id.toString(), {});
 		const sessionCookie = auth.createSessionCookie(session.id);
-		if (!user) {
-			return error(500);
-		}
 		event.cookies.set(sessionCookie.name, sessionCookie.value, {
 			path: '/',
 			maxAge: 120,
 		});
-		redirect(302, '/');
+
+		redirect(303, '/');
 	},
 } satisfies Actions;
