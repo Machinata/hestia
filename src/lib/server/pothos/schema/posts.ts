@@ -9,39 +9,39 @@ export const Post = builder.prismaObject('Post', {
 		published: t.exposeBoolean('published'),
 		author: t.relation('author'),
 		createdAt: t.expose('createdAt', {
-			type: 'Date'
+			type: 'Date',
 		}),
 		updatedAt: t.expose('updatedAt', {
-			type: 'Date'
-		})
-	})
+			type: 'Date',
+		}),
+	}),
 });
 
 const CreatePost = builder.inputType('CreatePost', {
 	fields: (t) => ({
 		title: t.string({
-			required: true
+			required: true,
 		}),
 		content: t.string({
-			required: true
+			required: true,
 		}),
 		published: t.boolean(),
 		authorId: t.id({
-			required: true
-		})
-	})
+			required: true,
+		}),
+	}),
 });
 
 const UpdatePost = builder.inputType('UpdatePost', {
 	fields: (t) => ({
 		id: t.id({
-			required: true
+			required: true,
 		}),
 		title: t.string(),
 		content: t.string(),
 		published: t.boolean(),
-		authorId: t.id()
-	})
+		authorId: t.id(),
+	}),
 });
 
 builder.queryFields((t) => ({
@@ -49,19 +49,19 @@ builder.queryFields((t) => ({
 		type: [Post],
 		resolve: async () => {
 			return await prisma.post.findMany();
-		}
-	})
+		},
+	}),
 }));
 
 builder.mutationFields((t) => ({
 	createPost: t.field({
 		type: Post,
 		args: {
-			input: t.arg({ required: true, type: CreatePost })
+			input: t.arg({ required: true, type: CreatePost }),
 		},
 		resolve: async (parent, args) => {
 			const author = await prisma.user.findUnique({
-				where: { id: Number(args.input.authorId) }
+				where: { id: Number(args.input.authorId) },
 			});
 			if (!author) {
 				throw new Error('Author does not exist!');
@@ -73,23 +73,23 @@ builder.mutationFields((t) => ({
 					published: args.input.published,
 					author: {
 						connect: {
-							id: author.id
-						}
-					}
-				}
+							id: author.id,
+						},
+					},
+				},
 			});
 			return post;
-		}
+		},
 	}),
 	updatePost: t.field({
 		type: Post,
 		args: {
-			input: t.arg({ required: true, type: UpdatePost })
+			input: t.arg({ required: true, type: UpdatePost }),
 		},
 		resolve: async (parent, args) => {
 			const post = await prisma.post.update({
 				where: {
-					id: Number(args.input.id)
+					id: Number(args.input.id),
 				},
 				data: {
 					title: args.input.title ?? undefined,
@@ -98,13 +98,13 @@ builder.mutationFields((t) => ({
 					...(args.input.authorId && {
 						author: {
 							connect: {
-								id: Number(args.input.authorId)
-							}
-						}
-					})
-				}
+								id: Number(args.input.authorId),
+							},
+						},
+					}),
+				},
 			});
 			return post;
-		}
-	})
+		},
+	}),
 }));

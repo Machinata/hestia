@@ -23,6 +23,6 @@ export const builder = new SchemaBuilder<PothosType>({
 		// use where clause from prismaRelatedConnection for totalCount (defaults to true)
 		filterConnectionTotalCount: true,
 		// warn when not using a query parameter correctly
-		onUnusedQuery: process.env.NODE_ENV === 'production' ? null : 'warn'
-	}
+		onUnusedQuery: process.env.NODE_ENV === 'production' ? null : 'warn',
+	},
 });

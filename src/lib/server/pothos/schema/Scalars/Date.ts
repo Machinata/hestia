@@ -10,5 +10,5 @@ export const DateScalar = builder.scalarType('Date', {
 			throw new Error('Cyka blyat');
 		}
 		return new Date(date);
-	}
+	},
 });

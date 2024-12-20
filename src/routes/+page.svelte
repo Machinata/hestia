@@ -1,19 +1,17 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import Loader from '$lib/components/Loader.svelte';
-
-	let { data } = $props();
+	import Loader from '$lib/components/common/Loader';
+	import { fade } from 'svelte/transition';
 
 	$effect(() => {
-		const id = setTimeout(() => (data.authenticated ? goto('/app') : goto('/login')), 1500);
+		const id = setTimeout(() => goto('/app'), 1500);
 		return () => {
 			clearTimeout(id);
 		};
 	});
 </script>
 
-<div class="site-loader">
-	<h1>Hestia</h1>
+<div class="site-loader" transition:fade>
 	<Loader />
 </div>
 

@@ -1,49 +1,55 @@
 <script lang="ts">
-	import Button from '$lib/components/Button.svelte';
-	import Input from '$lib/components/Input.svelte';
-	import { fade, scale } from 'svelte/transition';
+	import Button from '$lib/components/common/Button';
+	import TextInput from '$lib/components/common/TextInput';
+	import Tabs from '$lib/components/Navigation/Tabs';
+	import { fade } from 'svelte/transition';
 
-	let mode: 'register' | 'login' = $state('login');
-	let action = $derived(mode === 'login' ? '?/login' : '?/register');
-
-	function onViewToggle() {
-		mode = mode === 'login' ? 'register' : 'login';
-	}
+	let tab: 0 | 1 = $state(0);
 </script>
 
-<div class="page">
-	<h1 class="underline">Hestia</h1>
-	<div class="login">
-		<form method="POST" {action} transition:scale>
-			<h2 transition:fade>{mode === 'login' ? 'Login' : 'Register'}</h2>
-			{#if mode === 'register'}
-				<div transition:fade>
-					<Input label="Name" name="name" />
-				</div>
+{#snippet userIcon()}
+	<i class="fi fi-br-envelope"></i>
+{/snippet}
+
+{#snippet passwordIcon()}
+	<i class="fi fi-br-key"></i>
+{/snippet}
+
+{#snippet nameIcon()}
+	<i class="fi fi-rr-user"></i>
+{/snippet}
+
+{#snippet form(variant: 'login' | 'register')}
+	<form method="POST" action={`?/${variant}`}>
+		<div class="card-body gap-4">
+			<TextInput start={userIcon} placeholder="Email" name="email" type="email" />
+			<TextInput
+				start={passwordIcon}
+				placeholder="Password"
+				name="password"
+				type="password"
+			/>
+			{#if variant === 'register'}
+				<TextInput start={nameIcon} placeholder="Name" name="name" fade />
 			{/if}
-			<Input label="Email" name="email" type="email" />
-			<Input label="Password" name="password" type="password" />
-			<div class="flex gap-2">
-				<Button
-					onClick={onViewToggle}
-					label={mode === 'login' ? 'Register' : 'Login'}
-					size="large"
-					primary
-				/>
-				<Button type="submit" label="Submit" size="large" />
-			</div>
-		</form>
+		</div>
+		<div class="card-actions px-4">
+			<Button block type="submit" label="Submit" outline />
+		</div>
+	</form>
+{/snippet}
+
+<div class="page" transition:fade>
+	<div class="card bg-base-200 py-4 shadow-xl">
+		<div class="card-title">
+			<Tabs variant="bordered" bind:selected={tab} tabs={['Login', 'Register']} />
+		</div>
+		{@render form(tab === 0 ? 'login' : 'register')}
 	</div>
 </div>
 
 <style>
 	.page {
 		@apply flex flex-col items-center justify-around gap-24 py-[10%];
-	}
-	.login {
-		@apply w-fit max-w-lg animate-fade rounded-lg bg-white p-8;
-	}
-	.login > form {
-		@apply flex w-full flex-col items-center gap-8 rounded-lg;
 	}
 </style>

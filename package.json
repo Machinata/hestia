@@ -15,7 +15,12 @@
 		"storybook": "storybook dev -p 6006",
 		"build-storybook": "storybook build",
 		"test:e2e": "playwright test",
-		"prisma:generate": "prisma generate"
+		"prisma:dev": "prisma migrate dev",
+		"prisma:format": "prisma format",
+		"prisma:generate": "prisma generate",
+		"prisma:push": "prisma db push",
+		"prisma:reset": "prisma migrate reset --force",
+		"prisma:studio": "prisma studio"
 	},
 	"devDependencies": {
 		"@chromatic-com/storybook": "^3.2.2",
@@ -23,7 +28,9 @@
 		"@playwright/test": "^1.45.3",
 		"@storybook/addon-essentials": "^8.4.7",
 		"@storybook/addon-interactions": "^8.4.7",
+		"@storybook/addon-styling-webpack": "^1.0.1",
 		"@storybook/addon-svelte-csf": "^5.0.0-next.13",
+		"@storybook/addon-themes": "^8.4.7",
 		"@storybook/blocks": "^8.4.7",
 		"@storybook/svelte": "^8.4.7",
 		"@storybook/sveltekit": "^8.4.7",
@@ -33,6 +40,7 @@
 		"@sveltejs/vite-plugin-svelte": "^5.0.0",
 		"@types/bun": "^1.1.14",
 		"autoprefixer": "^10.4.20",
+		"daisyui": "^4.12.22",
 		"eslint": "^9.7.0",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-svelte": "^2.36.0",
@@ -42,7 +50,6 @@
 		"prettier-plugin-tailwindcss": "^0.6.5",
 		"prisma": "^6.0.1",
 		"storybook": "^8.4.7",
-		"storybook-dark-mode": "^4.0.2",
 		"svelte": "^5.0.0",
 		"svelte-check": "^4.0.0",
 		"tailwindcss": "^3.4.9",
@@ -52,6 +59,7 @@
 		"vitest": "^2.0.4"
 	},
 	"dependencies": {
+		"@flaticon/flaticon-uicons": "^3.3.1",
 		"@lucia-auth/adapter-prisma": "^4.0.1",
 		"@pothos/core": "^4.3.0",
 		"@pothos/plugin-prisma": "^4.4.0",

@@ -3,9 +3,8 @@
 	import Navbar from './Navbar.svelte';
 
 	const { Story } = defineMeta({
-		title: 'Navbar',
+		title: 'Navigation/Navbar',
 		component: Navbar,
-		tags: ['autodocs']
 	});
 </script>
 
