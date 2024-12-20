@@ -1,0 +1,3 @@
+services:
+    wait:
+        image: dokku/wait
