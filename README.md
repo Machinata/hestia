@@ -44,6 +44,7 @@ bun build
 - https://svelte.dev/docs/kit/introduction
 - https://zod.dev/
 - https://day.js.org/
+- https://inlang.com/c/svelte
 
 ### Frontend
 
