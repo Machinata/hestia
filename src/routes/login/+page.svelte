@@ -4,6 +4,8 @@
 	import Tabs from '$lib/components/Navigation/Tabs';
 	import { fade } from 'svelte/transition';
 
+	let { form } = $props();
+
 	let tab: 0 | 1 = $state(0);
 </script>
 
@@ -19,7 +21,14 @@
 	<i class="fi fi-rr-user"></i>
 {/snippet}
 
-{#snippet form(variant: 'login' | 'register')}
+{#snippet alert(message: string)}
+	<div role="alert" class="alert alert-error absolute -top-20" transition:fade>
+		<i class="fi fi-bs-octagon-xmark h-6 w-6 shrink-0"></i>
+		<span>{message}</span>
+	</div>
+{/snippet}
+
+{#snippet Form(variant: 'login' | 'register')}
 	<form method="POST" action={`?/${variant}`}>
 		<div class="card-body gap-4">
 			<TextInput start={userIcon} placeholder="Email" name="email" type="email" />
@@ -42,9 +51,12 @@
 <div class="page" transition:fade>
 	<div class="card bg-base-200 py-4 shadow-xl">
 		<div class="card-title">
+			{#if form}
+				{@render alert(Object.values(form)[0].error)}
+			{/if}
 			<Tabs variant="bordered" bind:selected={tab} tabs={['Login', 'Register']} />
 		</div>
-		{@render form(tab === 0 ? 'login' : 'register')}
+		{@render Form(tab === 0 ? 'login' : 'register')}
 	</div>
 </div>
 
