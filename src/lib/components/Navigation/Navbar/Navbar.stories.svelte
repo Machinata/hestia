@@ -4,7 +4,7 @@
 
 	const { Story } = defineMeta({
 		title: 'Navigation/Navbar',
-		component: Navbar
+		component: Navbar,
 	});
 </script>
 

@@ -17,22 +17,22 @@
 					'info',
 					'success',
 					'warning',
-					'error'
-				]
+					'error',
+				],
 			},
 			bordered: {
-				control: 'boolean'
+				control: 'boolean',
 			},
 			size: {
 				control: 'select',
 				options: ['Default', 'xs', 'sm', 'lg'],
-				defaultValue: 'Default'
+				defaultValue: 'Default',
 			},
 			type: {
 				control: 'select',
-				options: ['email', 'password', 'search', 'tel', 'text', 'url']
-			}
-		}
+				options: ['email', 'password', 'search', 'tel', 'text', 'url'],
+			},
+		},
 	});
 </script>
 

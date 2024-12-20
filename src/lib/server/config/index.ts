@@ -8,7 +8,7 @@ export interface Configuration {
 export const LoadConfig = (): Configuration => {
 	const { success, data, error } = z
 		.object({
-			VITE_APP_VERSION: z.string().default('development')
+			VITE_APP_VERSION: z.string().default('development'),
 		})
 		.safeParse(import.meta.env);
 
@@ -17,7 +17,7 @@ export const LoadConfig = (): Configuration => {
 	}
 
 	return {
-		app_version: data!.VITE_APP_VERSION
+		app_version: data!.VITE_APP_VERSION,
 	};
 };
 

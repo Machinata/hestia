@@ -10,5 +10,5 @@ export const Yoga = createYoga<RequestEvent>({
 	graphqlEndpoint: '/api/graphql',
 	// Let Yoga use sveltekit's Response object
 	fetchAPI: { Response },
-	logging: yogaLogger
+	logging: yogaLogger,
 });

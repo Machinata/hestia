@@ -4,7 +4,7 @@
 
 	const { Story } = defineMeta({
 		title: 'Feedback/Loader',
-		component: Loader
+		component: Loader,
 	});
 </script>
 

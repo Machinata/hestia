@@ -7,11 +7,11 @@ const config = {
 		'@storybook/addon-interactions',
 		'@storybook/addon-styling-webpack',
 		'@storybook/addon-svelte-csf',
-		'@storybook/addon-themes'
+		'@storybook/addon-themes',
 	],
 	framework: {
 		name: '@storybook/sveltekit',
-		options: {}
-	}
+		options: {},
+	},
 };
 export default config;

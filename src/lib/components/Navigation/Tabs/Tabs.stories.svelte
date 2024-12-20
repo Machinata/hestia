@@ -10,13 +10,13 @@
 		argTypes: {
 			size: {
 				control: 'select',
-				options: ['xs', 'sm', 'rg', 'lg']
+				options: ['xs', 'sm', 'rg', 'lg'],
 			},
 			variant: {
 				control: 'select',
-				options: ['none', 'bordered', 'lifted', 'boxed']
-			}
-		}
+				options: ['none', 'bordered', 'lifted', 'boxed'],
+			},
+		},
 	});
 </script>
 

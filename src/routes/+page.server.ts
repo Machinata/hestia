@@ -3,15 +3,15 @@ export async function load(event) {
 	const userId = event.cookies.get('user');
 	if (!userId) {
 		return {
-			authenticated: false
+			authenticated: false,
 		};
 	}
 	const user = await prisma.user.findUnique({
 		where: {
-			id: userId
-		}
+			id: userId,
+		},
 	});
 	return {
-		authenticated: !!user
+		authenticated: !!user,
 	};
 }

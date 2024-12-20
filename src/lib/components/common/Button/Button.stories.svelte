@@ -7,7 +7,7 @@
 		title: 'Actions/Button',
 		component: Button,
 		args: {
-			onClick: fn()
+			onClick: fn(),
 		},
 		argTypes: {
 			color: {
@@ -22,22 +22,22 @@
 					'info',
 					'success',
 					'warning',
-					'error'
-				]
+					'error',
+				],
 			},
 			outline: {
-				control: 'boolean'
+				control: 'boolean',
 			},
 			size: {
 				control: 'select',
 				options: ['Default', 'xs', 'sm', 'lg'],
-				defaultValue: 'Default'
+				defaultValue: 'Default',
 			},
 			type: {
 				control: 'select',
-				options: ['button', 'reset', 'submit']
-			}
-		}
+				options: ['button', 'reset', 'submit'],
+			},
+		},
 	});
 </script>
 

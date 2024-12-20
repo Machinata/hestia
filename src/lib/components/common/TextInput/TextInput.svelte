@@ -30,7 +30,7 @@
 		name,
 		placeholder,
 		size,
-		type = 'text'
+		type = 'text',
 	}: Props = $props();
 </script>
 

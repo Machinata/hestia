@@ -8,22 +8,22 @@ export default {
 	theme: {
 		extend: {
 			fontFamily: {
-				display: ['Baskervville SC']
+				display: ['Baskervville SC'],
 			},
 			animation: {
-				fade: 'fadeIn .5s ease-in-out'
+				fade: 'fadeIn .5s ease-in-out',
 			},
 			keyframes: {
 				fadeIn: {
 					from: { opacity: '0' },
-					to: { opacity: '1' }
-				}
-			}
-		}
+					to: { opacity: '1' },
+				},
+			},
+		},
 	},
 
 	plugins: [typography, daisyui],
 	daisyui: {
-		logs: false
-	}
+		logs: false,
+	},
 } satisfies Config;

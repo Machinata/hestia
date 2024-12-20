@@ -8,33 +8,33 @@ export const User = builder.prismaObject('User', {
 		name: t.exposeString('name'),
 		posts: t.relation('posts'),
 		createdAt: t.expose('createdAt', {
-			type: 'Date'
+			type: 'Date',
 		}),
 		updatedAt: t.expose('updatedAt', {
-			type: 'Date'
-		})
-	})
+			type: 'Date',
+		}),
+	}),
 });
 
 const CreateUser = builder.inputType('CreateUser', {
 	fields: (t) => ({
 		email: t.string({
-			required: true
+			required: true,
 		}),
 		name: t.string({
-			required: true
-		})
-	})
+			required: true,
+		}),
+	}),
 });
 
 const UpdateUser = builder.inputType('UpdateUser', {
 	fields: (t) => ({
 		id: t.id({
-			required: true
+			required: true,
 		}),
 		email: t.string(),
-		name: t.string()
-	})
+		name: t.string(),
+	}),
 });
 
 builder.queryFields((t) => ({
@@ -42,42 +42,42 @@ builder.queryFields((t) => ({
 		type: [User],
 		resolve: async () => {
 			return await prisma.user.findMany();
-		}
-	})
+		},
+	}),
 }));
 
 builder.mutationFields((t) => ({
 	createUser: t.field({
 		type: User,
 		args: {
-			input: t.arg({ required: true, type: CreateUser })
+			input: t.arg({ required: true, type: CreateUser }),
 		},
 		resolve: async (parent, args) => {
 			const post = await prisma.user.create({
 				data: {
 					email: args.input.email,
-					name: args.input.name
-				}
+					name: args.input.name,
+				},
 			});
 			return post;
-		}
+		},
 	}),
 	updateUser: t.field({
 		type: User,
 		args: {
-			input: t.arg({ required: true, type: UpdateUser })
+			input: t.arg({ required: true, type: UpdateUser }),
 		},
 		resolve: async (parent, args) => {
 			const post = await prisma.user.update({
 				where: {
-					id: Number(args.input.id)
+					id: Number(args.input.id),
 				},
 				data: {
 					email: args.input.email,
-					name: args.input.name ?? undefined
-				}
+					name: args.input.name ?? undefined,
+				},
 			});
 			return post;
-		}
-	})
+		},
+	}),
 }));

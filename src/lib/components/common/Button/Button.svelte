@@ -25,7 +25,7 @@
 		responsive = false,
 		size,
 		type = 'button',
-		wide = false
+		wide = false,
 	}: Props = $props();
 </script>
 

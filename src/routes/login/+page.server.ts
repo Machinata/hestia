@@ -12,8 +12,8 @@ export const actions = {
 		}
 		const user = await prisma.user.findUnique({
 			where: {
-				email: form.get('email') as string
-			}
+				email: form.get('email') as string,
+			},
 		});
 		if (!user) {
 			logger.error('User not found! ${user}');
@@ -31,7 +31,7 @@ export const actions = {
 		const sessionCookie = auth.createSessionCookie(session.id);
 		event.cookies.set(sessionCookie.name, sessionCookie.value, {
 			path: '/',
-			maxAge: 120
+			maxAge: 120,
 		});
 		redirect(302, '/');
 	},
@@ -47,8 +47,8 @@ export const actions = {
 			data: {
 				email: form.get('email') as string,
 				name: form.get('name') as string,
-				password: hashedPassword
-			}
+				password: hashedPassword,
+			},
 		});
 		const session = await auth.createSession(user.id.toString(), {});
 		const sessionCookie = auth.createSessionCookie(session.id);
@@ -57,8 +57,8 @@ export const actions = {
 		}
 		event.cookies.set(sessionCookie.name, sessionCookie.value, {
 			path: '/',
-			maxAge: 120
+			maxAge: 120,
 		});
 		redirect(302, '/');
-	}
+	},
 } satisfies Actions;

@@ -23,7 +23,12 @@
 	<form method="POST" action={`?/${variant}`}>
 		<div class="card-body gap-4">
 			<TextInput start={userIcon} placeholder="Email" name="email" type="email" />
-			<TextInput start={passwordIcon} placeholder="Password" name="password" type="password" />
+			<TextInput
+				start={passwordIcon}
+				placeholder="Password"
+				name="password"
+				type="password"
+			/>
 			{#if variant === 'register'}
 				<TextInput start={nameIcon} placeholder="Name" name="name" fade />
 			{/if}
