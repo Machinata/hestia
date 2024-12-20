@@ -30,10 +30,10 @@ export const actions = {
 		const session = await auth.createSession(user.id, []);
 		const sessionCookie = auth.createSessionCookie(session.id);
 		event.cookies.set(sessionCookie.name, sessionCookie.value, {
-			path: '/',
+			path: '/app',
 			maxAge: 120,
 		});
-		redirect(302, '/');
+		redirect(302, '/app');
 	},
 
 	register: async (event) => {
@@ -56,9 +56,9 @@ export const actions = {
 			return error(500);
 		}
 		event.cookies.set(sessionCookie.name, sessionCookie.value, {
-			path: '/',
+			path: '/app',
 			maxAge: 120,
 		});
-		redirect(302, '/');
+		redirect(302, '/app');
 	},
 } satisfies Actions;
