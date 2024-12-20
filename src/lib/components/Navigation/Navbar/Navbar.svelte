@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { greeting } from '$lib/i18n';
+	import { messages } from '$lib/i18n';
 
 	let { title, username }: { title: string; username: string } = $props();
 
-	let message = $derived(`${greeting()} ${username}!`);
+	let message = $derived(`${messages.greeting()} ${username}!`);
 </script>
 
 <header class="navbar justify-between bg-base-200 px-4">
