@@ -3,8 +3,8 @@ on:
     pull_request:
         branches: ['*']
 jobs:
-    build:
-        name: Test & Build
+    checks:
+        name: Checks
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
