@@ -1,5 +1,6 @@
 import { prisma } from '$lib/server/prisma';
 import { redirect } from '@sveltejs/kit';
+
 export async function load(event) {
 	const sessionId = event.cookies.get('auth_session');
 	if (!sessionId) {
@@ -11,7 +12,7 @@ export async function load(event) {
 		},
 	});
 	if (!user) {
-		redirect(401, '/login');
+		redirect(300, '/login');
 	}
 	return {};
 }
