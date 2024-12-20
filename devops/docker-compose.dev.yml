@@ -7,3 +7,4 @@ services:
     environment:
       POSTGRES_USER: hestia
       POSTGRES_PASSWORD: test123
+      
