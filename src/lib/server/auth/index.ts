@@ -11,7 +11,7 @@ export async function validateSession(event: ServerLoadEvent) {
 		where: { id: sessionId },
 		include: { user: true },
 	});
-	if (!session) {
+	if (!session || !session.user) {
 		redirect(300, '/login');
 	}
 	const expiry = session.expiresAt;
