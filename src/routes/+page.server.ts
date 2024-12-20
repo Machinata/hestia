@@ -1,4 +1,4 @@
-import { validateSession } from '$lib/server/auth/index.js';
+import { validateSession } from '$lib/server/auth';
 
 export async function load(event) {
 	await validateSession(event);
