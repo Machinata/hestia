@@ -11,7 +11,7 @@
 		"format": "prettier --write .",
 		"lint": "prettier --check . && eslint .",
 		"test:unit": "vitest",
-		"test": "npm run test:unit -- --run && npm run test:e2e",
+		"test": "bun run test:unit -- --run && bun run test:e2e",
 		"storybook": "storybook dev -p 6006",
 		"build-storybook": "storybook build",
 		"test:e2e": "playwright test",
@@ -20,7 +20,8 @@
 		"prisma:generate": "prisma generate",
 		"prisma:push": "prisma db push",
 		"prisma:reset": "prisma migrate reset --force",
-		"prisma:studio": "prisma studio"
+		"prisma:studio": "prisma studio",
+		"prisma:validate": "prisma validate"
 	},
 	"devDependencies": {
 		"@chromatic-com/storybook": "^3.2.2",
