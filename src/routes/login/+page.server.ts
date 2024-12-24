@@ -1,5 +1,4 @@
 import { messages } from '$lib/i18n';
-import { email_inuse } from '$lib/paraglide/messages';
 import { logger } from '$lib/server/logger';
 import { auth } from '$lib/server/lucia.js';
 import { prisma } from '$lib/server/prisma';
@@ -12,12 +11,12 @@ export const actions = {
 		const form = await event.request.formData();
 		const email = form.get('email');
 		if (typeof email !== 'string') {
-			return fail(400, { email: { error: messages.email_required() } });
+			return fail(400, { email: { error: messages.login_error_email_required() } });
 		}
 
 		const password = form.get('password') as string;
 		if (!password) {
-			return fail(400, { password: { error: messages.password_required() } });
+			return fail(400, { password: { error: messages.login_error_password_required() } });
 		}
 
 		const user = await prisma.user.findUnique({
@@ -27,13 +26,15 @@ export const actions = {
 		});
 		if (!user) {
 			logger.error(`User not found! ${email}`);
-			return fail(404, { email: { value: email, error: messages.user_not_found() } });
+			return fail(404, {
+				email: { value: email, error: messages.login_error_user_not_found() },
+			});
 		}
 
 		const validPassword = await new Argon2id().verify(user.password, password);
 		if (!validPassword) {
 			return fail(400, {
-				password: { error: messages.password_incorrect() },
+				password: { error: messages.login_error_password_incorrect() },
 			});
 		}
 		const session = await auth.createSession(user.id, []);
@@ -48,26 +49,30 @@ export const actions = {
 	register: async (event) => {
 		const form = await event.request.formData();
 		if (!form.has('email')) {
-			return fail(400, { email: { error: messages.email_required() } });
+			return fail(400, { email: { error: messages.login_error_email_required() } });
 		}
 		const { success, data: email, error } = string().email().safeParse(form.get('email'));
 		if (!success) {
 			logger.error(error);
-			return fail(400, { email: { value: email, error: messages.email_incorrect() } });
+			return fail(400, {
+				email: { value: email, error: messages.login_error_email_incorrect() },
+			});
 		}
 
 		const password = form.get('password');
 		if (typeof password !== 'string') {
-			return fail(400, { password: { error: messages.password_required() } });
+			return fail(400, { password: { error: messages.login_error_password_required() } });
 		}
 		const name = form.get('name');
 		if (typeof name !== 'string') {
-			return fail(400, { name: { error: messages.name_required() } });
+			return fail(400, { name: { error: messages.login_error_name_required() } });
 		}
 
 		const usersWithEmail = await prisma.user.count({ where: { email: email } });
 		if (usersWithEmail !== 0) {
-			return fail(409, { email: { value: email, error: email_inuse() } });
+			return fail(409, {
+				email: { value: email, error: messages.login_error_email_inuse() },
+			});
 		}
 
 		const hashedPassword = await new Argon2id().hash(password);

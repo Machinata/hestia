@@ -2,6 +2,7 @@
 	import Button from '$lib/components/common/Button';
 	import TextInput from '$lib/components/common/TextInput';
 	import Tabs from '$lib/components/Navigation/Tabs';
+	import { messages } from '$lib/i18n/index.js';
 	import { fade } from 'svelte/transition';
 
 	let { form } = $props();
@@ -31,19 +32,29 @@
 {#snippet Form(variant: 'login' | 'register')}
 	<form method="POST" action={`?/${variant}`}>
 		<div class="card-body gap-4">
-			<TextInput start={userIcon} placeholder="Email" name="email" type="email" />
+			<TextInput
+				start={userIcon}
+				placeholder={messages.login_label_email()}
+				name="email"
+				type="email"
+			/>
 			<TextInput
 				start={passwordIcon}
-				placeholder="Password"
+				placeholder={messages.login_label_password()}
 				name="password"
 				type="password"
 			/>
 			{#if variant === 'register'}
-				<TextInput start={nameIcon} placeholder="Name" name="name" fade />
+				<TextInput
+					start={nameIcon}
+					placeholder={messages.login_label_name()}
+					name="name"
+					fade
+				/>
 			{/if}
 		</div>
 		<div class="card-actions px-4">
-			<Button block type="submit" label="Submit" outline />
+			<Button block type="submit" label={messages.login_button_submit()} outline />
 		</div>
 	</form>
 {/snippet}
@@ -54,7 +65,11 @@
 			{#if form}
 				{@render alert(Object.values(form)[0].error)}
 			{/if}
-			<Tabs variant="bordered" bind:selected={tab} tabs={['Login', 'Register']} />
+			<Tabs
+				variant="bordered"
+				bind:selected={tab}
+				tabs={[messages.login_tab_login(), messages.login_tab_register()]}
+			/>
 		</div>
 		{@render Form(tab === 0 ? 'login' : 'register')}
 	</div>
