@@ -7,5 +7,20 @@
 	"email_incorrect": "Email is incorrect",
 	"password_incorrect": "Password is incorrect",
 	"email_inuse": "Email is already in use",
-	"user_not_found": "The user could not be found"
+	"user_not_found": "The user could not be found",
+	"residents_table_name": "Name",
+	"residents_table_phone": "Phone #",
+	"residents_table_email": "Email Address",
+	"residents_form_name": "Name",
+	"residents_form_phone": "Phone",
+	"residents_form_email": "Email",
+	"residents_form_submit": "Submit",
+	"residents_form_error_missing_name": "Name is required",
+	"residents_form_error_missing_phone": "Phone number is required",
+	"residents_form_error_missing_email": "Email address is required",
+	"residents_form_error_invalid_name": "Name is invalid",
+	"residents_form_error_invalid_phone": "Phone number is invalid",
+	"residents_form_error_invalid_email": "Email address is invalid",
+	"residents_form_error_inuse_phone": "Phone number already in use",
+	"residents_form_error_inuse_email": "Email address already in use"
 }

@@ -1,4 +1,8 @@
 <script lang="ts">
+	import { enhance } from '$app/forms';
+	import Button from '$lib/components/common/Button';
+	import TextInput from '$lib/components/common/TextInput/TextInput.svelte';
+	import { messages } from '$lib/i18n';
 	import type { Resident } from '@prisma/client';
 
 	interface Props {
@@ -8,30 +12,32 @@
 	}
 
 	let { data }: Props = $props();
-
-	let residents = $derived(
-		data.residents.map((resident) => {
-			const { id: _, createdAt: __, updatedAt: ___, ...picked } = resident;
-			return picked;
-		})
-	);
 </script>
 
-{#snippet Table(data: Pick<Resident, 'name' | 'phone' | 'email'>[])}
+{#snippet Form()}
+	<form method="POST" action="?/create" use:enhance>
+		<TextInput name="name" placeholder={messages.residents_form_name()} />
+		<TextInput name="phone" placeholder={messages.residents_form_phone()} type="tel" />
+		<TextInput name="email" placeholder={messages.residents_form_email()} type="email" />
+		<Button outline label={messages.residents_form_submit()} type="submit" />
+	</form>
+{/snippet}
+
+{#snippet Table(data: Resident[])}
 	<table class="table">
 		<thead>
 			<tr>
-				<td>Name</td>
-				<td>Phone #</td>
-				<td>Email</td>
+				<td>{messages.residents_table_name()}</td>
+				<td>{messages.residents_table_phone()}</td>
+				<td>{messages.residents_table_email()}</td>
 			</tr>
 		</thead>
 		<tbody>
 			{#each data as resident}
 				<tr>
-					{#each Object.values(resident) as col}
-						<td>{col}</td>
-					{/each}
+					<td>{resident.name}</td>
+					<td>{resident.phone}</td>
+					<td>{resident.email}</td>
 				</tr>
 			{/each}
 		</tbody>
@@ -39,5 +45,6 @@
 {/snippet}
 
 <div>
-	{@render Table(residents)}
+	{@render Form()}
+	{@render Table(data.residents)}
 </div>
