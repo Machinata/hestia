@@ -40,7 +40,7 @@ export const actions = {
 		const sessionCookie = auth.createSessionCookie(session.id);
 		event.cookies.set(sessionCookie.name, sessionCookie.value, {
 			path: '/',
-			maxAge: 120,
+			maxAge: 240,
 		});
 		redirect(302, '/');
 	},
