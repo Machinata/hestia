@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import Loader from '$lib/components/common/Loader';
+	import { Loader } from '$lib/components/Feedback';
 	import { fade } from 'svelte/transition';
 
 	$effect(() => {
