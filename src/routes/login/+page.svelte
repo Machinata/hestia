@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Button from '$lib/components/common/Button';
+	import { Button } from '$lib/components/Actions';
 	import TextInput from '$lib/components/common/TextInput';
 	import Tabs from '$lib/components/Navigation/Tabs';
 	import { fade } from 'svelte/transition';

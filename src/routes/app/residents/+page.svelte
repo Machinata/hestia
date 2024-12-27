@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import Button from '$lib/components/common/Button';
+	import { Button } from '$lib/components/Actions';
 	import TextInput from '$lib/components/common/TextInput/TextInput.svelte';
 	import { messages } from '$lib/i18n';
 	import type { Resident } from '@prisma/client';
