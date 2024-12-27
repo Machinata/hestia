@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import { Button } from '$lib/components/Actions';
-	import TextInput from '$lib/components/common/TextInput/TextInput.svelte';
+	import { Button, Dropdown, DropdownItem } from '$lib/components/Actions';
+	import { TextInput } from '$lib/components/DataInput';
 	import { messages } from '$lib/i18n';
 	import type { Resident } from '@prisma/client';
 
@@ -23,6 +23,10 @@
 	</form>
 {/snippet}
 
+{#snippet EditIcon()}
+	<i class="fi fi-rr-file-edit"></i>
+{/snippet}
+
 {#snippet Table(data: Resident[])}
 	<table class="table">
 		<thead>
@@ -30,6 +34,7 @@
 				<td>{messages.residents_table_name()}</td>
 				<td>{messages.residents_table_phone()}</td>
 				<td>{messages.residents_table_email()}</td>
+				<td></td>
 			</tr>
 		</thead>
 		<tbody>
@@ -38,6 +43,12 @@
 					<td>{resident.name}</td>
 					<td>{resident.phone}</td>
 					<td>{resident.email}</td>
+					<td>
+						<Dropdown label={EditIcon}>
+							<DropdownItem>Edit</DropdownItem>
+							<form><DropdownItem>Delete</DropdownItem></form>
+						</Dropdown></td
+					>
 				</tr>
 			{/each}
 		</tbody>

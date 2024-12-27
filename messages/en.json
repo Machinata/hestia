@@ -11,6 +11,7 @@
 	"residents_table_name": "Name",
 	"residents_table_phone": "Phone #",
 	"residents_table_email": "Email Address",
+	"residents_table_modify": "Modify",
 	"residents_form_name": "Name",
 	"residents_form_phone": "Phone",
 	"residents_form_email": "Email",
