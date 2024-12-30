@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Button from '$lib/components/common/Button';
-	import TextInput from '$lib/components/common/TextInput';
+	import { TextInput } from '$lib/components/DataInput';
 	import Tabs from '$lib/components/Navigation/Tabs';
 	import { messages } from '$lib/i18n/index.js';
 	import { fade } from 'svelte/transition';
