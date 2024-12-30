@@ -1,12 +1,13 @@
 <script lang="ts">
 	import type { DaisyColor, DaisySize } from '$lib/types';
+	import type { Snippet } from 'svelte';
 
 	type Props = {
 		bordered?: boolean;
 		color?: Omit<DaisyColor, 'neutral'>;
 		disabled?: boolean;
-		error?: string;
-		label?: string;
+		error?: string | Snippet;
+		label?: string | Snippet;
 		size?: DaisySize;
 	};
 	let { bordered, color, disabled, error, label, size }: Props = $props();
@@ -14,21 +15,29 @@
 
 <label class="form-control w-full max-w-lg">
 	<div class="label">
-		{#if label}
-			<span
-				class="label-text"
-				class:text-primary={color === 'primary'}
-				class:text-secondary={color === 'secondary'}
-				class:text-accent={color === 'accent'}
-				class:text-info={color === 'info'}
-				class:text-success={color === 'success'}
-				class:text-warning={color === 'warning'}
-				class:text-error={color === 'error' || error}>{label}</span
-			>
-		{/if}
-		{#if error}
-			<span class="label-text-alt font-semibold text-error">{error}</span>
-		{/if}
+		<span
+			class="label-text"
+			class:text-primary={color === 'primary'}
+			class:text-secondary={color === 'secondary'}
+			class:text-accent={color === 'accent'}
+			class:text-info={color === 'info'}
+			class:text-success={color === 'success'}
+			class:text-warning={color === 'warning'}
+			class:text-error={color === 'error' || error}
+		>
+			{#if typeof label === 'string'}
+				{label}
+			{:else if label}
+				{@render label()}
+			{/if}
+		</span>
+		<span class="label-text-alt font-semibold text-error">
+			{#if typeof error === 'string'}
+				{error}
+			{:else if error}
+				{@render error()}
+			{/if}
+		</span>
 	</div>
 	<textarea
 		class="textarea"
