@@ -54,7 +54,7 @@
 			{/if}
 		</div>
 		<div class="card-actions px-4">
-			<Button block type="submit" label={messages.login_button_submit()} outline />
+			<Button block type="submit" outline>{messages.login_button_submit()}</Button>
 		</div>
 	</form>
 {/snippet}

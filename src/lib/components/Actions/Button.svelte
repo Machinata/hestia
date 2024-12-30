@@ -1,12 +1,13 @@
 <script lang="ts">
 	import type { DaisyColor, DaisySize } from '$lib/types';
+	import type { Snippet } from 'svelte';
 	import type { HTMLButtonAttributes } from 'svelte/elements';
 
 	interface Props {
 		block?: boolean;
+		children: Snippet;
 		color?: DaisyColor;
 		glass?: boolean;
-		label: string;
 		outline?: boolean;
 		onClick?: () => void;
 		responsive?: boolean;
@@ -17,9 +18,9 @@
 
 	let {
 		block = false,
+		children,
 		color,
 		glass = false,
-		label,
 		outline = false,
 		onClick,
 		responsive = false,
@@ -51,7 +52,7 @@
 	class:btn-error={color === 'error'}
 	class={`btn ${responsive && 'btn-xs sm:btn-sm md:btn-md lg:btn-lg'}`}
 >
-	{label}
+	{@render children()}
 </button>
 
 <style></style>
