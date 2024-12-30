@@ -3,7 +3,7 @@
 
 	let { title, username }: { title: string; username: string } = $props();
 
-	let message = $derived(messages.greeting({ name: username }));
+	let message = $derived(messages.nav_greeting({ name: username }));
 </script>
 
 <header class="navbar justify-between bg-base-200 px-4">
