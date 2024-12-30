@@ -6,27 +6,36 @@
 		title: 'Data Input/Text Input',
 		component: TextInput,
 		argTypes: {
+			bordered: {
+				control: 'boolean',
+			},
 			color: {
 				control: 'select',
 				options: [
+					'ghost',
 					'primary',
 					'secondary',
 					'accent',
-					'ghost',
-					'link',
 					'info',
 					'success',
 					'warning',
 					'error',
 				],
 			},
-			bordered: {
+			disabled: {
 				control: 'boolean',
 			},
+			error: {
+				control: 'text',
+			},
+			fade: { control: 'boolean' },
+			start: { control: 'text' },
+			end: { control: 'text' },
+			label: { control: 'text' },
+			placeholder: { control: 'text' },
 			size: {
 				control: 'select',
-				options: ['Default', 'xs', 'sm', 'lg'],
-				defaultValue: 'Default',
+				options: ['xs', 'sm', '-', 'lg'],
 			},
 			type: {
 				control: 'select',
