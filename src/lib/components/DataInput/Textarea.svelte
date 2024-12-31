@@ -7,10 +7,12 @@
 		color?: Omit<DaisyColor, 'neutral'>;
 		disabled?: boolean;
 		error?: string | Snippet;
+		form?: string;
 		label?: string | Snippet;
+		name?: string;
 		size?: DaisySize;
 	};
-	let { bordered, color, disabled, error, label, size }: Props = $props();
+	let { bordered, color, error, label, size, ...props }: Props = $props();
 </script>
 
 <label class="form-control w-full max-w-lg">
@@ -53,6 +55,6 @@
 		class:textarea-success={color === 'success'}
 		class:textarea-warning={color === 'warning'}
 		class:textarea-error={color === 'error' || error}
-		{disabled}
+		{...props}
 	></textarea>
 </label>
