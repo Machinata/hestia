@@ -1,3 +1,4 @@
+import { env } from '$env/dynamic/private';
 import { PhoneRegex } from '$lib/regex';
 import { logger } from '$lib/server/logger';
 import { z } from 'zod';
@@ -8,24 +9,22 @@ export interface TwilioConfiguration {
 	twilio_phone_number: string;
 }
 
-const LoadConfig = (): TwilioConfiguration => {
+export const TwilioConfig = (): TwilioConfiguration => {
 	const { success, data, error } = z
 		.object({
-			VITE_TWILIO_ACCOUNT_SID: z.string(),
-			VITE_TWILIO_AUTH_TOKEN: z.string(),
-			VITE_TWILIO_PHONE_NUMBER: z.string().regex(PhoneRegex),
+			TWILIO_ACCOUNT_SID: z.string().min(1),
+			TWILIO_AUTH_TOKEN: z.string().min(1),
+			TWILIO_PHONE_NUMBER: z.string().regex(PhoneRegex),
 		})
-		.safeParse(import.meta.env);
+		.safeParse(env);
 
 	if (!success) {
 		logger.error(error.message);
 	}
 
 	return {
-		twilio_account_sid: data!.VITE_TWILIO_ACCOUNT_SID,
-		twilio_auth_token: data!.VITE_TWILIO_AUTH_TOKEN,
-		twilio_phone_number: data!.VITE_TWILIO_PHONE_NUMBER,
+		twilio_account_sid: data!.TWILIO_ACCOUNT_SID,
+		twilio_auth_token: data!.TWILIO_AUTH_TOKEN,
+		twilio_phone_number: data!.TWILIO_PHONE_NUMBER,
 	};
 };
-
-export const TwilioConfig = LoadConfig();
