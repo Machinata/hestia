@@ -33,6 +33,9 @@
 			label: {
 				control: 'text',
 			},
+			placeholder: {
+				control: 'text',
+			},
 			size: {
 				control: 'select',
 				options: ['xs', 'sm', '-', 'lg'],

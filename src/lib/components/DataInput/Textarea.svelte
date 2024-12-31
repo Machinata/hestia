@@ -10,6 +10,7 @@
 		form?: string;
 		label?: string | Snippet;
 		name?: string;
+		placeholder?: string;
 		size?: DaisySize;
 	};
 	let { bordered, color, error, label, size, ...props }: Props = $props();

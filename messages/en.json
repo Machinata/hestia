@@ -13,5 +13,9 @@
 	"login_error_email_incorrect": "Email is incorrect",
 	"login_error_password_incorrect": "Password is incorrect",
 	"login_error_email_inuse": "Email is already in use",
-	"login_error_user_not_found": "The user could not be found"
+	"login_error_user_not_found": "The user could not be found",
+	"sms_prompt": "Send a Message",
+	"sms_label_phone": "Phone Number",
+	"sms_label_message": "Message",
+	"sms_button_submit": "Send Message"
 }
