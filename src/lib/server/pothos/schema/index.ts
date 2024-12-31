@@ -6,7 +6,7 @@ builder.queryType({});
 builder.queryField('version', (t) =>
 	t.string({
 		description: 'Application version',
-		resolve: () => version
+		resolve: () => version,
 	})
 );
 
