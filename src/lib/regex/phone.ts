@@ -1,1 +1,1 @@
-export const PhoneRegex = /^(1-)?\d{3}-?\d{3}-?\d{4}$/;
+export const PhoneRegex = /^\+?\d?(\d{3}\d{3}\d{4}|\d{3}-\d{3}-\d{4})$/;
