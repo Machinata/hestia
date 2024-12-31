@@ -7,6 +7,7 @@
 		block?: boolean;
 		children: Snippet;
 		color?: DaisyColor;
+		full?: boolean;
 		glass?: boolean;
 		outline?: boolean;
 		onClick?: () => void;
@@ -20,6 +21,7 @@
 		block = false,
 		children,
 		color,
+		full = false,
 		glass = false,
 		outline = false,
 		onClick,
@@ -36,6 +38,7 @@
 	class:btn-outline={outline}
 	class:btn-block={block}
 	class:btn-wide={wide}
+	class:w-full={full}
 	class:glass
 	class:btn-xs={size === 'xs'}
 	class:btn-sm={size === 'sm'}
