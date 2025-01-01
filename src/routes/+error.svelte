@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import { error } from '@sveltejs/kit';
 </script>
 
 <main class="flex h-screen w-full flex-col items-center justify-center bg-[#1d222a]">
