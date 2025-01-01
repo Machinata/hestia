@@ -20,5 +20,6 @@
 	"sms_prompt": "Send a Message",
 	"sms_label_phone": "Phone Number",
 	"sms_label_message": "Message",
-	"sms_button_submit": "Send Message"
+	"sms_button_submit": "Send Message",
+	"error_page_go_home": "Go Home"
 }
