@@ -23,7 +23,8 @@
 		"prisma:push": "prisma db push",
 		"prisma:reset": "prisma migrate reset --force",
 		"prisma:studio": "prisma studio",
-		"prisma:validate": "prisma validate"
+		"prisma:validate": "prisma validate",
+		"prepare": "husky"
 	},
 	"devDependencies": {
 		"@chromatic-com/storybook": "^3.2.2",
@@ -48,6 +49,7 @@
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-svelte": "^2.36.0",
 		"globals": "^15.0.0",
+		"husky": "^9.1.7",
 		"prettier": "^3.3.2",
 		"prettier-plugin-svelte": "^3.2.6",
 		"prettier-plugin-tailwindcss": "^0.6.5",
@@ -70,6 +72,7 @@
 		"@prisma/client": "6.0.1",
 		"@tailwindcss/typography": "^0.5.15",
 		"dayjs": "^1.11.13",
+		"eslint_d": "^14.3.0",
 		"graphql": "^16.9.0",
 		"graphql-yoga": "^5.10.4",
 		"lucia": "^3.2.2",
