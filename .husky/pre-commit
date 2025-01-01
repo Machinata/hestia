@@ -1,2 +1,2 @@
 bunx prettier . --write
- bunx eslint $(git diff --name-only HEAD | grep -E '\.(*)$' | xargs)
+ bunx eslint_d $(git diff --name-only HEAD | grep -E '\.(*)$' | xargs)
