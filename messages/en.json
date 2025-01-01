@@ -13,5 +13,6 @@
 	"login_error_email_incorrect": "Email is incorrect",
 	"login_error_password_incorrect": "Password is incorrect",
 	"login_error_email_inuse": "Email is already in use",
-	"login_error_user_not_found": "The user could not be found"
+	"login_error_user_not_found": "The user could not be found",
+	"error_page_go_home": "Go Home"
 }
