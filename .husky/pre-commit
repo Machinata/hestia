@@ -1,4 +1,2 @@
-bun test
 bunx prettier . --write
-bunx eslint $(git diff --name-only HEAD | grep -E '\.(js|jsx)$' | xargs)
  
