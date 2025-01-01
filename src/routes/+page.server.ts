@@ -1,5 +1,3 @@
 import { validateSession } from '$lib/server/auth';
 
-export async function load(event) {
-	await validateSession(event);
-}
+export const load = async (event) => validateSession(event);
