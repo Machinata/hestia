@@ -1,8 +1,8 @@
+import { TWILIO_PHONE_NUMBER } from '$env/static/private';
 import { PhoneRegex } from '$lib/regex';
 import { logger } from '$lib/server/logger';
-import { TwilioConfig } from '$lib/server/twilio';
+import { TwilioClient } from '$lib/server/twilio';
 import { fail, type Actions } from '@sveltejs/kit';
-import twilio from 'twilio';
 import zod from 'zod';
 
 export const actions = {
@@ -31,17 +31,11 @@ export const actions = {
 			return fail(400, { error: 'invalid_message' });
 		}
 
-		const twilioConfig = TwilioConfig();
-		const twilioClient = twilio(
-			twilioConfig.twilio_account_sid,
-			twilioConfig.twilio_auth_token
-		);
-
 		try {
-			const result = await twilioClient.messages.create({
+			const result = await TwilioClient.messages.create({
 				to: phone,
 				body: message,
-				from: twilioConfig.twilio_phone_number,
+				from: TWILIO_PHONE_NUMBER,
 			});
 			logger.debug(result);
 		} catch (e) {

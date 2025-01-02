@@ -1,1 +1,1 @@
-export * from './twilio.config';
+export * from './client';
