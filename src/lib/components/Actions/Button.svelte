@@ -41,6 +41,7 @@
 
 <button
 	onclick={onClick}
+	class="btn"
 	class:btn-active={active}
 	class:no-animation={!animation}
 	class:btn-block={block}
