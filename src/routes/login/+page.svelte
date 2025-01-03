@@ -1,6 +1,6 @@
 <script lang="ts">
-	import Button from '$lib/components/common/Button';
-	import TextInput from '$lib/components/common/TextInput';
+	import { TextInput } from '$lib/components/DataInput';
+	import { Button } from '$lib/components/Actions';
 	import Tabs from '$lib/components/Navigation/Tabs';
 	import { messages } from '$lib/i18n/index.js';
 	import { fade } from 'svelte/transition';
@@ -54,7 +54,7 @@
 			{/if}
 		</div>
 		<div class="card-actions px-4">
-			<Button block type="submit" label={messages.login_button_submit()} outline />
+			<Button block type="submit" outline>{messages.login_button_submit()}</Button>
 		</div>
 	</form>
 {/snippet}
