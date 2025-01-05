@@ -5,8 +5,11 @@ declare global {
 	namespace App {
 		// interface Error {}
 		interface Locals {
-			user: import('lucia').User | null;
-			session: import('lucia').Session | null;
+			auth: {
+				userId?: string;
+				orgId?: string | null;
+				sessionId?: string;
+			};
 		}
 		// interface PageData {}
 		// interface PageState {}
