@@ -55,7 +55,7 @@
 				/>
 			</div>
 			<div class="card-actions justify-center px-8 pb-4">
-				<Button outline type="submit" full>{messages.sms_button_submit()}</Button>
+				<Button type="submit" variant="outline" full>{messages.sms_button_submit()}</Button>
 			</div>
 		</form>
 	</div>

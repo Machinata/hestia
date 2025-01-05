@@ -1,61 +1,68 @@
 <script lang="ts">
 	import type { DaisyColor, DaisySize } from '$lib/types';
-	import type { Snippet } from 'svelte';
-	import type { HTMLButtonAttributes } from 'svelte/elements';
+	import type { SvelteHTMLElements } from 'svelte/elements';
+	import { twMerge } from 'tailwind-merge';
 
-	interface Props {
+	type Props = {
+		active?: boolean;
+		animation?: boolean;
 		block?: boolean;
-		children: Snippet;
 		color?: DaisyColor;
 		full?: boolean;
 		glass?: boolean;
-		outline?: boolean;
-		onClick?: () => void;
-		responsive?: boolean;
+		shape?: 'circle' | 'square';
 		size?: DaisySize;
-		type?: HTMLButtonAttributes['type'];
+		variant?: 'link' | 'outline';
 		wide?: boolean;
-	}
+	} & SvelteHTMLElements['button'];
 
 	let {
+		active = false,
+		animation = true,
 		block = false,
 		children,
+		class: className,
 		color,
+		disabled,
 		full = false,
 		glass = false,
-		outline = false,
-		onClick,
-		responsive = false,
+		shape,
 		size,
-		type = 'button',
 		wide = false,
+		variant,
+		...props
 	}: Props = $props();
 </script>
 
 <button
-	{type}
-	onclick={onClick}
-	class:btn-outline={outline}
+	{...props}
+	{disabled}
+	class={twMerge('btn', className)}
+	class:btn-active={active}
+	class:no-animation={!animation}
 	class:btn-block={block}
-	class:btn-wide={wide}
-	class:w-full={full}
-	class:glass
-	class:btn-xs={size === 'xs'}
-	class:btn-sm={size === 'sm'}
-	class:btn-lg={size === 'lg'}
 	class:btn-neutral={color === 'neutral'}
 	class:btn-primary={color === 'primary'}
 	class:btn-secondary={color === 'secondary'}
 	class:btn-accent={color === 'accent'}
 	class:btn-ghost={color === 'ghost'}
-	class:btn-link={color === 'link'}
 	class:btn-info={color === 'info'}
 	class:btn-success={color === 'success'}
 	class:btn-warning={color === 'warning'}
 	class:btn-error={color === 'error'}
-	class={`btn ${responsive && 'btn-xs sm:btn-sm md:btn-md lg:btn-lg'}`}
+	class:btn-disabled={disabled}
+	class:w-full={full}
+	class:glass
+	class:btn-circle={shape === 'circle'}
+	class:btn-square={shape === 'square'}
+	class:btn-xs={size === 'xs'}
+	class:btn-sm={size === 'sm'}
+	class:btn-lg={size === 'lg'}
+	class:btn-link={variant === 'link'}
+	class:btn-outline={variant === 'outline'}
+	class:btn-wide={wide}
 >
-	{@render children()}
+	{@render children?.()}
 </button>
 
 <style></style>

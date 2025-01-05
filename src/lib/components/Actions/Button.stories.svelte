@@ -8,9 +8,11 @@
 		title: 'Actions/Button',
 		component: Button,
 		args: {
-			onClick: fn(),
+			onclick: fn(),
 		},
 		argTypes: {
+			active: { control: 'boolean' },
+			animation: { control: 'boolean' },
 			block: { control: 'boolean' },
 			color: {
 				control: 'select',
@@ -20,28 +22,25 @@
 					'secondary',
 					'accent',
 					'ghost',
-					'link',
 					'info',
 					'success',
 					'warning',
 					'error',
 				],
 			},
+			disabled: { control: 'boolean' },
 			full: { control: 'boolean' },
 			glass: { control: 'boolean' },
-			outline: {
-				control: 'boolean',
+			shape: {
+				control: 'select',
+				options: ['circle', 'square'],
 			},
-			responsive: { control: 'boolean' },
 			size: {
 				control: 'select',
-				options: ['Default', 'xs', 'sm', 'lg'],
+				options: ['xs', 'sm', '-', 'lg'],
 				defaultValue: 'Default',
 			},
-			type: {
-				control: 'select',
-				options: ['button', 'reset', 'submit'],
-			},
+			variant: { control: 'select', options: ['link', 'outline'] },
 			wide: { control: 'boolean' },
 		},
 	});
