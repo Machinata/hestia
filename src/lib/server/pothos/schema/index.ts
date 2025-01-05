@@ -13,7 +13,6 @@ builder.queryField('version', (t) =>
 builder.mutationType({});
 
 import './Scalars';
-import './posts';
 import './users';
 
 export const Schema = builder.toSchema();
