@@ -1,15 +1,16 @@
 import { redirect, type ServerLoadEvent } from '@sveltejs/kit';
 import { prisma } from '../prisma';
-import { createClerkClient } from '@clerk/express';
+import { createClerkClient } from '@clerk/backend';
 import { CLERK_SECRET_KEY } from '$env/static/private';
 import { clerkClient } from 'clerk-sveltekit/server';
+import { logger } from '$lib/server/logger';
 
 const clerkSessionClient = createClerkClient({
 	secretKey: CLERK_SECRET_KEY,
 });
 
 export async function validateSession({ locals }: ServerLoadEvent) {
-	if (!locals.auth.userId) {
+	if (!locals.auth.userId || !locals.auth.sessionId) {
 		return redirect(307, '/login');
 	}
 
@@ -28,13 +29,24 @@ export async function validateSession({ locals }: ServerLoadEvent) {
 	});
 
 	if (!user) {
+		if (clerkUser.emailAddresses.length === 0) {
+			logger.error('User has no email address');
+			await clerkSessionClient.sessions.revokeSession(locals.auth.sessionId);
+
+			return redirect(307, '/login');
+		}
+
 		user = await prisma.user.create({
 			data: {
 				clerkId: clerkUser.id,
 				email: clerkUser.emailAddresses[0].emailAddress,
-				name: clerkUser.fullName ?? 'Ben the Man',
+				name: clerkUser.fullName ?? '',
 			},
 		});
+
+		if (clerkUser.fullName === null) {
+			logger.error('User has no name');
+		}
 	}
 
 	return {

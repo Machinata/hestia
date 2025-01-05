@@ -26,6 +26,9 @@
 				return;
 			}
 
+			/**
+			 * Set the active organization to the first one in the list, this is temporary until we let the user choose the organization
+			 */
 			try {
 				// Set the active organization to the first one in the list
 				await clerk.setActive({
