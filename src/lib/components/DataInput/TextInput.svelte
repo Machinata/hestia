@@ -75,7 +75,6 @@
 		class:input-secondary={color === 'secondary'}
 		class:input-accent={color === 'accent'}
 		class:input-ghost={color === 'ghost'}
-		class:input-link={color === 'link'}
 		class:input-info={color === 'info'}
 		class:input-success={color === 'success'}
 		class:input-warning={color === 'warning'}
