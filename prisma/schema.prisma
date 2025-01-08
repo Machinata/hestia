@@ -40,3 +40,10 @@ model Tenant {
   clerkOrganizationId String   @unique
   users               User[]
 }
+
+model TenantConfig {
+  tenantId    String @id
+  accountSID  String
+  authToken   String
+  phoneNumber String
+}
