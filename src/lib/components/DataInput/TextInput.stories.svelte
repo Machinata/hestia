@@ -1,6 +1,7 @@
 <script module lang="ts">
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import TextInput from './TextInput.svelte';
+	import { User } from 'lucide-svelte';
 
 	const { Story } = defineMeta({
 		title: 'Data Input/Text Input',
@@ -45,10 +46,18 @@
 	});
 </script>
 
-{#snippet icon()}
-	<i class="fi fi-rr-user"></i>
-{/snippet}
-
 <Story name="Text Label" args={{ color: 'primary', name: 'text', start: 'Text' }} />
-<Story name="Icon Start" args={{ color: 'secondary', name: 'text', start: icon }} />
-<Story name="Icon End" args={{ color: 'secondary', name: 'text', end: icon }} />
+<Story name="Icon Start">
+	<TextInput name="text" color="secondary">
+		{#snippet start()}
+			<User />
+		{/snippet}
+	</TextInput>
+</Story>
+<Story name="Icon End">
+	<TextInput name="text" color="secondary">
+		{#snippet end()}
+			<User />
+		{/snippet}
+	</TextInput>
+</Story>

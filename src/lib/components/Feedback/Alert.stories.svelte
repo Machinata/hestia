@@ -1,8 +1,8 @@
 <script module lang="ts">
 	import { defineMeta } from '@storybook/addon-svelte-csf';
-	import Alert from './Alert.svelte';
+	import { Info } from 'lucide-svelte';
 	import type { ComponentProps } from 'svelte';
-	import { InfoIcon } from '../Icons';
+	import Alert from './Alert.svelte';
 
 	const { Story } = defineMeta({
 		title: 'Feedback/Alert',
@@ -16,7 +16,7 @@
 {#snippet template(props: ComponentProps<typeof Alert>)}
 	<Alert {...props}>
 		{#snippet icon()}
-			<InfoIcon class="h-6 w-6 shrink-0 stroke-info" />
+			<Info />
 		{/snippet}
 		<span>Hello world!</span>
 	</Alert>
