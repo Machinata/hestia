@@ -1,2 +1,1 @@
-bunx prettier . --write
-bunx eslint_d $(git diff --name-only HEAD | grep -E '\.(*)$' | xargs)
+bunx lint-staged
