@@ -9,15 +9,15 @@
 </script>
 
 <div class="layout">
-	<ClerkProvider publishableKey={PUBLIC_CLERK_PUBLISHABLE_KEY}>
-		{@render children()}
-	</ClerkProvider>
+	<ParaglideJS {i18n}>
+		<ClerkProvider publishableKey={PUBLIC_CLERK_PUBLISHABLE_KEY}>
+			{@render children()}
+		</ClerkProvider>
+	</ParaglideJS>
 </div>
 
-<ParaglideJS {i18n}>
-	<style>
-		.layout {
-			@apply h-screen w-screen bg-base-100;
-		}
-	</style>
-</ParaglideJS>
+<style>
+	.layout {
+		@apply h-screen w-screen bg-base-100;
+	}
+</style>
