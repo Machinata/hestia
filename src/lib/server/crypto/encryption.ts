@@ -21,6 +21,7 @@ export function encrypt(value: string): string {
 	const key = scryptSync(password, salt, 32);
 	const iv = randomBytes(8);
 
+	// @ts-expect-error Bun typing mismatch, but it still works!
 	const cipher = createCipheriv(algorithm, key, iv);
 	const encrypted = cipher.update(value, 'utf-8', 'hex') + cipher.final('hex');
 	const authTag = cipher.getAuthTag();
@@ -32,7 +33,9 @@ export function decrypt(value: string): string {
 	const key = scryptSync(password, salt, 32);
 	const [iv, text, authTag] = deconstruct(value, iv_position);
 
+	// @ts-expect-error Bun typing mismatch, but it still works!
 	const decipher = createDecipheriv(algorithm, key, iv);
+	// @ts-expect-error Bun typing mismatch, but it still works!
 	decipher.setAuthTag(authTag);
 
 	return decipher.update(text, 'hex', 'utf-8') + decipher.final('utf-8');
