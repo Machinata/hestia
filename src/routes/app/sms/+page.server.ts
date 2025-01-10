@@ -1,9 +1,31 @@
 import { TWILIO_PHONE_NUMBER } from '$env/static/private';
 import { PhoneRegex } from '$lib/regex';
 import { logger } from '$lib/server/logger';
+import { prisma } from '$lib/server/prisma/index.js';
 import { TwilioClient } from '$lib/server/twilio';
-import { fail, type Actions } from '@sveltejs/kit';
+import { error, fail, type Actions } from '@sveltejs/kit';
 import zod from 'zod';
+
+export const load = async (event) => {
+	const tenantId = event.locals.auth!.orgId!;
+
+	const configs = await prisma.tenantConfig.findUnique({
+		where: { tenantId: tenantId },
+		select: {
+			accountSID: true,
+			authToken: true,
+			phoneNumber: true,
+		},
+	});
+
+	if (!configs || Object.keys(configs).length === 0) {
+		return error(500, new Error('twilio_configs_not_set'));
+	}
+
+	return {
+		configs: configs,
+	};
+};
 
 export const actions = {
 	push: async (event) => {
