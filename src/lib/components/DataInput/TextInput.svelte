@@ -1,26 +1,23 @@
 <script lang="ts">
 	import type { DaisyColor, DaisySize } from '$lib/types';
 	import type { Snippet } from 'svelte';
-	import type { HTMLInputTypeAttribute } from 'svelte/elements';
+	import type { HTMLInputTypeAttribute, SvelteHTMLElements } from 'svelte/elements';
 	import { fade as fadeTransition } from 'svelte/transition';
 
 	type Props = {
 		bordered?: boolean;
 		color?: Exclude<DaisyColor, 'neutral'>;
-		disabled?: boolean;
 		error?: string | Snippet;
 		fade?: boolean;
 		start?: string | Snippet;
 		end?: string | Snippet;
 		label?: string | Snippet;
-		name: string;
-		placeholder?: string;
 		size?: DaisySize;
 		type?: Extract<
 			HTMLInputTypeAttribute,
 			'email' | 'password' | 'search' | 'tel' | 'text' | 'url'
 		>;
-	};
+	} & Omit<SvelteHTMLElements['input'], 'type'>;
 
 	let {
 		bordered = false,
@@ -35,10 +32,11 @@
 		placeholder,
 		size,
 		type = 'text',
+		...props
 	}: Props = $props();
 </script>
 
-<label class="form-control w-full">
+<label class="form-control w-full" transition:fadeTransition={{ duration: fade ? 200 : 0 }}>
 	<div class="label">
 		<span
 			class="label-text"
@@ -65,7 +63,6 @@
 		</span>
 	</div>
 	<div
-		transition:fadeTransition={{ duration: fade ? 200 : 0 }}
 		class="input flex w-full items-center gap-2"
 		class:input-bordered={bordered}
 		class:input-xs={size === 'xs'}
@@ -85,7 +82,7 @@
 		{:else}
 			{@render start?.()}
 		{/if}
-		<input {disabled} {name} {placeholder} {type} class="grow" />
+		<input {...props} {disabled} {name} {placeholder} {type} class="grow" />
 		{#if typeof end === 'string'}
 			{end}
 		{:else}
