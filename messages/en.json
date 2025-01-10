@@ -1,6 +1,9 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
 	"nav_greeting": "Hello {name}!",
+	"nav_menu_sms": "SMS",
+	"nav_menu_settings": "Settings",
+	"nav_menu_logout": "Logout",
 	"login_tab_login": "Login",
 	"login_tab_register": "Register",
 	"login_label_email": "Email",
