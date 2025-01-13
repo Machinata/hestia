@@ -19,6 +19,8 @@ builder.queryFields((t) => ({
 	users: t.prismaField({
 		type: [User],
 		resolve: async () => {
+			// TODO: Fix this when we add a tenant context
+			// eslint-disable-next-line no-restricted-syntax
 			return await prisma.user.findMany();
 		},
 	}),
