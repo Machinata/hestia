@@ -14,7 +14,7 @@ export async function validateSession({ locals }: ServerLoadEvent) {
 		return redirect(307, '/login');
 	}
 
-	if (!locals.auth.orgId && locals.auth.sessionId) {
+	if ((!locals.auth.orgId && locals.auth.sessionId) || !locals.auth.orgId) {
 		// Sign out the user if they are not associated with an organization
 		await clerkSessionClient.sessions.revokeSession(locals.auth.sessionId);
 		return redirect(307, '/login');
@@ -22,9 +22,32 @@ export async function validateSession({ locals }: ServerLoadEvent) {
 
 	const clerkUser = await clerkClient.users.getUser(locals.auth.userId);
 
+	const tenantClerkId = locals.auth.orgId;
+
+	let tenant = await prisma.tenant.findUnique({
+		where: {
+			clerkOrganizationId: tenantClerkId,
+		},
+	});
+
+	if (!tenant) {
+		const organization = await clerkClient.organizations.getOrganization({
+			organizationId: tenantClerkId,
+		});
+
+		tenant = await prisma.tenant.create({
+			data: {
+				clerkOrganizationId: tenantClerkId,
+				name: organization.name,
+				slug: organization.slug ?? `tenant-${tenantClerkId}`,
+			},
+		});
+	}
+
 	let user = await prisma.user.findFirst({
 		where: {
 			clerkId: clerkUser.id,
+			tenantId: tenant.id,
 		},
 	});
 
@@ -41,6 +64,7 @@ export async function validateSession({ locals }: ServerLoadEvent) {
 				clerkId: clerkUser.id,
 				email: clerkUser.emailAddresses[0].emailAddress,
 				name: clerkUser.fullName ?? '',
+				tenantId: tenant.id,
 			},
 		});
 
