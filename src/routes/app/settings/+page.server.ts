@@ -21,7 +21,7 @@ export const load = async (event) => {
 export const actions = {
 	update: async (event) => {
 		const form = await event.request.formData();
-		const tenantId = event.locals.auth!.orgId!;
+		const tenantId = event.locals.tenant.id;
 
 		if (!form.has('accountSID')) {
 			return fail(400, { error: 'account_sid_missing' });
