@@ -1,0 +1,58 @@
+name: Deployment
+on:
+    push:
+        branches:
+            - master
+jobs:
+    setup:
+        name: Setup
+        runs-on: ubuntu-24.04
+        outputs:
+            cache-key: ${{ steps.cache-restore.outputs.cache-primary-key }}
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+            - name: Bun Setup
+              uses: oven-sh/setup-bun@v2
+              with:
+                  bun-version-file: '.tool-versions'
+            - name: Restore node_modules
+              uses: actions/cache/restore@v4
+              id: cache-restore
+              with:
+                  path: |
+                      **/node_modules
+                  key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
+                  restore-keys: |
+                      ${{ runner.os }}-bun
+            - name: Install
+              if: steps.cache-restore.outputs.cache-hit != 'true'
+              run: bun install
+            - name: Cache node_modules
+              if: steps.cache-restore.outputs.cache-hit != 'true'
+              uses: actions/cache/save@v4
+              id: cache-save
+              with:
+                  path: |
+                      **/node_modules
+                  key: ${{ steps.cache-restore.outputs.cache-primary-key }}
+    storybook:
+        name: Deploy Storybook
+        needs: [setup]
+        runs-on: ubuntu-24.04
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+            - name: Bun Setup
+              uses: oven-sh/setup-bun@v2
+              with:
+                  bun-version-file: '.tool-versions'
+            - name: Restore node_modules
+              uses: actions/cache/restore@v4
+              id: cache-restore
+              with:
+                  path: |
+                      **/node_modules
+                  key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
+            - name: Build Storybook
+              run: bun build-storybook
