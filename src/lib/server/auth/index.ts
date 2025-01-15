@@ -26,7 +26,7 @@ export async function validateSession({ locals }: ServerLoadEvent) {
 
 	let tenant = await prisma.tenant.findUnique({
 		where: {
-			clerkId: tenantClerkId,
+			clerkOrganizationId: tenantClerkId,
 		},
 	});
 
@@ -37,7 +37,7 @@ export async function validateSession({ locals }: ServerLoadEvent) {
 
 		tenant = await prisma.tenant.create({
 			data: {
-				clerkId: tenantClerkId,
+				clerkOrganizationId: tenantClerkId,
 				name: organization.name,
 				slug: organization.slug ?? `tenant-${tenantClerkId}`,
 			},
