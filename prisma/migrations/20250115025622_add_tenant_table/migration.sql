@@ -15,25 +15,25 @@ ADD COLUMN     "tenantId" TEXT NOT NULL,
 ADD CONSTRAINT "User_pkey" PRIMARY KEY ("id", "tenantId");
 
 -- CreateTable
-CREATE TABLE "tenant" (
+CREATE TABLE "Tenant" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "slug" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
-    "clerkId" TEXT NOT NULL,
+    "clerkOrganizationId" TEXT NOT NULL,
 
-    CONSTRAINT "tenant_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Tenant_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "tenant_slug_key" ON "tenant"("slug");
+CREATE UNIQUE INDEX "Tenant_slug_key" ON "Tenant"("slug");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "tenant_clerkId_key" ON "tenant"("clerkId");
+CREATE UNIQUE INDEX "Tenant_clerkOrganizationId_key" ON "Tenant"("clerkOrganizationId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_clerkId_tenantId_key" ON "User"("clerkId", "tenantId");
 
 -- AddForeignKey
-ALTER TABLE "User" ADD CONSTRAINT "User_tenantId_fkey" FOREIGN KEY ("tenantId") REFERENCES "tenant"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "User" ADD CONSTRAINT "User_tenantId_fkey" FOREIGN KEY ("tenantId") REFERENCES "Tenant"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
