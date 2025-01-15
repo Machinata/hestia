@@ -19,8 +19,8 @@ CREATE TABLE "Tenant" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "slug" TEXT NOT NULL,
-    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" TIMESTAMP(3) NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
     "clerkOrganizationId" TEXT NOT NULL,
 
     CONSTRAINT "Tenant_pkey" PRIMARY KEY ("id")
