@@ -74,6 +74,6 @@ export async function validateSession({ locals }: ServerLoadEvent) {
 	}
 
 	return {
-		user: { name: user.name },
+		user: { name: user.name, hasImage: clerkUser.hasImage, imageUrl: clerkUser.imageUrl },
 	};
 }
