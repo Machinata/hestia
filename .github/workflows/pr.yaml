@@ -12,7 +12,7 @@ jobs:
             - name: Bun Setup
               uses: oven-sh/setup-bun@v2
               with:
-                  bun-version: latest
+                  bun-version-file: '.tool-versions'
             - name: Install
               run: bun install
             - name: Lint
