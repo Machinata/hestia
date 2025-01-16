@@ -1,18 +1,11 @@
 <script lang="ts">
-	import { messages } from '$lib/i18n';
-	import SignOutButton from 'clerk-sveltekit/client/SignOutButton.svelte';
+	import type { Snippet } from 'svelte';
 
-	let { title, username }: { title: string; username: string } = $props();
-
-	let message = $derived(messages.nav_greeting({ name: username }));
+	let { start, center, end }: { start?: Snippet; center?: Snippet; end?: Snippet } = $props();
 </script>
 
 <header class="navbar justify-between bg-base-200 px-4">
-	<h2 class="prose prose-xl">Hestia</h2>
-	<h1 class="prose prose-2xl">{title}</h1>
-	<p class="prose prose-lg">{message}</p>
-	<SignOutButton />
+	<div class="navbar-start">{@render start?.()}</div>
+	<div class="navbar-center">{@render center?.()}</div>
+	<div class="navbar-end">{@render end?.()}</div>
 </header>
-
-<style>
-</style>
