@@ -6,7 +6,7 @@ import { fail, type Actions } from '@sveltejs/kit';
 import zod from 'zod';
 
 export const load = async (event) => {
-	const tenantId = event.locals.auth!.orgId!;
+	const tenantId = event.locals.tenant.id;
 
 	const configs = await prisma.tenantConfig.findUnique({
 		where: { tenantId: tenantId },
