@@ -45,7 +45,7 @@ export const actions = {
 			success: phoneSuccess,
 			data: phoneNumber,
 			error: phoneError,
-		} = zod.string().regex(PhoneRegex).safeParse(form.get('phone'));
+		} = zod.string().regex(PhoneRegex).safeParse(form.get('phoneNumber'));
 		if (!phoneSuccess) {
 			logger.error(phoneError);
 			return fail(400, { error: 'invalid_phone_number' });
