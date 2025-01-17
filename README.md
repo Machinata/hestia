@@ -4,7 +4,7 @@ Hestia is an early stage project
 
 - [Setup](#setup)
 - [Developing](#developing)
-  - [Modifying Database Schema](#modifying-database-schema)
+    - [Modifying Database Schema](#modifying-database-schema)
 - [Building](#building)
 - [Stack](#stack)
 
@@ -39,7 +39,7 @@ bun prisma:studio
 
 ### Modifying Database Schema
 
->This section is still a work in progress
+> This section is still a work in progress
 
 We are using Prisma as our DB ORM tool.
 
