@@ -15,13 +15,13 @@
 </script>
 
 <div
+	{...props}
 	role="alert"
 	class={twMerge('alert', clsx(className))}
 	class:alert-info={color === 'info'}
 	class:alert-success={color === 'success'}
 	class:alert-warning={color === 'warning'}
 	class:alert-error={color === 'error'}
-	{...props}
 >
 	{@render icon?.()}
 	{@render children?.()}

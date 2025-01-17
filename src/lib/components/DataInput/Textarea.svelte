@@ -1,19 +1,28 @@
 <script lang="ts">
 	import type { DaisyColor, DaisySize } from '$lib/types';
+	import clsx from 'clsx';
 	import type { Snippet } from 'svelte';
+	import type { SvelteHTMLElements } from 'svelte/elements';
+	import { twMerge } from 'tailwind-merge';
 
 	type Props = {
 		bordered?: boolean;
 		color?: Omit<DaisyColor, 'neutral'>;
-		disabled?: boolean;
 		error?: string | Snippet;
-		form?: string;
 		label?: string | Snippet;
-		name?: string;
-		placeholder?: string;
+		resizable?: boolean | 'yes' | 'no' | 'x' | 'y';
 		size?: DaisySize;
-	};
-	let { bordered, color, error, label, size, ...props }: Props = $props();
+	} & SvelteHTMLElements['textarea'];
+	let {
+		bordered,
+		class: className,
+		color,
+		error,
+		label,
+		resizable,
+		size,
+		...props
+	}: Props = $props();
 </script>
 
 <label class="form-control w-full max-w-lg">
@@ -43,7 +52,8 @@
 		</span>
 	</div>
 	<textarea
-		class="textarea"
+		{...props}
+		class={twMerge('textarea', clsx(className))}
 		class:textarea-bordered={bordered}
 		class:textarea-xs={size === 'xs'}
 		class:textarea-sm={size === 'sm'}
@@ -56,6 +66,9 @@
 		class:textarea-success={color === 'success'}
 		class:textarea-warning={color === 'warning'}
 		class:textarea-error={color === 'error' || error}
-		{...props}
+		class:resize={resizable === true || resizable === 'yes'}
+		class:resize-x={resizable === 'x'}
+		class:resize-y={resizable === 'y'}
+		class:resize-none={resizable === false || resizable === 'no'}
 	></textarea>
 </label>
