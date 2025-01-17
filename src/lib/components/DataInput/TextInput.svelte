@@ -1,8 +1,10 @@
 <script lang="ts">
 	import type { DaisyColor, DaisySize } from '$lib/types';
+	import clsx from 'clsx';
 	import type { Snippet } from 'svelte';
 	import type { HTMLInputTypeAttribute, SvelteHTMLElements } from 'svelte/elements';
 	import { fade as fadeTransition } from 'svelte/transition';
+	import { twMerge } from 'tailwind-merge';
 
 	type Props = {
 		bordered?: boolean;
@@ -21,17 +23,14 @@
 
 	let {
 		bordered = false,
+		class: className,
 		color,
-		disabled,
 		error,
 		fade,
 		start,
 		end,
 		label,
-		name,
-		placeholder,
 		size,
-		type = 'text',
 		...props
 	}: Props = $props();
 </script>
@@ -82,7 +81,7 @@
 		{:else}
 			{@render start?.()}
 		{/if}
-		<input {...props} {disabled} {name} {placeholder} {type} class="grow" />
+		<input {...props} class={twMerge('grow', clsx(className))} />
 		{#if typeof end === 'string'}
 			{end}
 		{:else}
@@ -90,6 +89,3 @@
 		{/if}
 	</div>
 </label>
-
-<style>
-</style>

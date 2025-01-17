@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { DaisyColor } from '$lib/types';
+	import clsx from 'clsx';
 	import type { SvelteHTMLElements } from 'svelte/elements';
 	import { twMerge } from 'tailwind-merge';
 
@@ -9,7 +10,7 @@
 </script>
 
 <a
-	class={twMerge(className, 'link')}
+	class={twMerge('link', clsx(className))}
 	class:link-primary={color === 'primary'}
 	class:link-secondary={color === 'secondary'}
 	class:link-accent={color === 'accent'}

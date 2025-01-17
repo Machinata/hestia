@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { DaisyColor, DaisySize } from '$lib/types';
+	import clsx from 'clsx';
 	import type { SvelteHTMLElements } from 'svelte/elements';
 	import { twMerge } from 'tailwind-merge';
 
@@ -37,7 +38,7 @@
 <button
 	{...props}
 	{disabled}
-	class={twMerge('btn', className)}
+	class={twMerge('btn', clsx(className))}
 	class:btn-active={active}
 	class:no-animation={!animation}
 	class:btn-block={block}
