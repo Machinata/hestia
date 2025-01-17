@@ -34,7 +34,7 @@
 				<h2 class="text-2xl font-semibold">{messages.settings_category_twilio()}</h2>
 				<TextInput
 					defaultvalue={configs?.accountSID}
-					name="accountID"
+					name="accountSID"
 					placeholder="..."
 					bordered
 					fade
