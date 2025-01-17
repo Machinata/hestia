@@ -2,6 +2,12 @@
 
 Hestia is an early stage project
 
+- [Setup](#setup)
+- [Developing](#developing)
+    - [Modifying Database Schema](#modifying-database-schema)
+- [Building](#building)
+- [Stack](#stack)
+
 ## Setup
 
 ```bash
@@ -30,6 +36,14 @@ bun prisma:studio
 ```
 
 > You can access the Yoga web-app at `/api/graphql`
+
+### Modifying Database Schema
+
+> This section is still a work in progress
+
+We are using Prisma as our DB ORM tool.
+
+- Please follow the [naming conventions](https://www.prisma.io/docs/orm/reference/prisma-schema-reference#naming-conventions) layed out by Prisma when creating tables.
 
 ## Building
 
