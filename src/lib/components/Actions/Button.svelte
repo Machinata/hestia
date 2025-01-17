@@ -24,7 +24,6 @@
 		children,
 		class: className,
 		color,
-		disabled,
 		full = false,
 		glass = false,
 		shape,
@@ -37,7 +36,6 @@
 
 <button
 	{...props}
-	{disabled}
 	class={twMerge('btn', clsx(className))}
 	class:btn-active={active}
 	class:no-animation={!animation}
@@ -51,7 +49,7 @@
 	class:btn-success={color === 'success'}
 	class:btn-warning={color === 'warning'}
 	class:btn-error={color === 'error'}
-	class:btn-disabled={disabled}
+	class:btn-disabled={props.disabled}
 	class:w-full={full}
 	class:glass
 	class:btn-circle={shape === 'circle'}
