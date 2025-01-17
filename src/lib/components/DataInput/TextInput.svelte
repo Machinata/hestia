@@ -38,7 +38,7 @@
 <label class="form-control w-full" transition:fadeTransition={{ duration: fade ? 200 : 0 }}>
 	<div class="label">
 		<span
-			class="label-text"
+			class="label-text flex items-center gap-2"
 			class:text-primary={color === 'primary'}
 			class:text-secondary={color === 'secondary'}
 			class:text-accent={color === 'accent'}
