@@ -1,4 +1,5 @@
 <script lang="ts">
+	import clsx from 'clsx';
 	import type { DaisyColor } from '$lib/types';
 	import type { SvelteHTMLElements } from 'svelte/elements';
 	import { twMerge } from 'tailwind-merge';
@@ -10,7 +11,7 @@
 </script>
 
 <progress
-	class={twMerge(className, 'progress')}
+	class={twMerge('progress', clsx(className))}
 	class:progress-primary={color === 'primary'}
 	class:progress-secondary={color === 'secondary'}
 	class:progress-accent={color === 'accent'}

@@ -74,6 +74,7 @@
 		"@prisma/client": "6.0.1",
 		"@tailwindcss/typography": "^0.5.15",
 		"clerk-sveltekit": "https://pkg.pr.new/wobsoriano/clerk-sveltekit@ca15d4e",
+		"clsx": "^2.1.1",
 		"dayjs": "^1.11.13",
 		"eslint_d": "^14.3.0",
 		"graphql": "^16.9.0",

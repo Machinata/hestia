@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { DaisyColor } from '$lib/types';
+	import clsx from 'clsx';
 	import type { SvelteHTMLElements } from 'svelte/elements';
 	import { twMerge } from 'tailwind-merge';
 
@@ -13,7 +14,7 @@
 </script>
 
 <div
-	class={twMerge('tooltip', className)}
+	class={twMerge('tooltip', clsx(className))}
 	class:tooltip-primary={color === 'primary'}
 	class:tooltip-secondary={color === 'secondary'}
 	class:tooltip-accent={color === 'accent'}

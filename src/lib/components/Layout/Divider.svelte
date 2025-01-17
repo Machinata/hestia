@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { DaisyColor } from '$lib/types';
+	import clsx from 'clsx';
 	import type { SvelteHTMLElements } from 'svelte/elements';
 	import { twMerge } from 'tailwind-merge';
 
@@ -12,7 +13,7 @@
 </script>
 
 <div
-	class={twMerge('divider', className)}
+	class={twMerge('divider', clsx(className))}
 	class:divider-neutral={color === 'neutral'}
 	class:divider-primary={color === 'primary'}
 	class:divider-secondary={color === 'secondary'}
