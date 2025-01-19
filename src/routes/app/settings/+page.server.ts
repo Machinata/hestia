@@ -10,7 +10,15 @@ export const load = async (event) => {
 
 	const configs = await prisma.tenantConfig.findUnique({
 		where: { tenantId: tenantId },
-		select: { accountSID: true, authToken: true, phoneNumber: true },
+		select: {
+			twilioConfig: {
+				select: {
+					accountSID: true,
+					authToken: true,
+					phoneNumber: true,
+				},
+			},
+		},
 	});
 
 	return {
@@ -23,21 +31,21 @@ export const actions = {
 		const form = await event.request.formData();
 		const tenantId = event.locals.tenant.id;
 
-		if (!form.has('accountSID')) {
+		if (!form.has('twilioAccountSID')) {
 			return fail(400, { error: 'account_sid_missing' });
 		}
-		if (!form.has('authToken')) {
+		if (!form.has('twilioAuthToken')) {
 			return fail(400, { error: 'auth_token_missing' });
 		}
-		if (!form.has('phoneNumber')) {
+		if (!form.has('twilioPhoneNumber')) {
 			return fail(400, { error: 'phone_number_missing' });
 		}
 
-		const accountSID = form.get('accountSID');
+		const accountSID = form.get('twilioAccountSID');
 		if (typeof accountSID !== 'string') {
 			return fail(400, { error: 'invalid_account_sid' });
 		}
-		const authToken = form.get('authToken');
+		const authToken = form.get('twilioAuthToken');
 		if (typeof authToken !== 'string') {
 			return fail(400, { error: 'invalid_auth_token' });
 		}
@@ -45,7 +53,7 @@ export const actions = {
 			success: phoneSuccess,
 			data: phoneNumber,
 			error: phoneError,
-		} = zod.string().regex(PhoneRegex).safeParse(form.get('phoneNumber'));
+		} = zod.string().regex(PhoneRegex).safeParse(form.get('twilioPhoneNumber'));
 		if (!phoneSuccess) {
 			logger.error(phoneError);
 			return fail(400, { error: 'invalid_phone_number' });
@@ -57,17 +65,25 @@ export const actions = {
 			},
 			create: {
 				tenantId: tenantId,
-				accountSID: encrypt(accountSID),
-				authToken: encrypt(authToken),
-				phoneNumber: encrypt(phoneNumber),
+				twilioConfig: {
+					create: {
+						accountSID: encrypt(accountSID),
+						authToken: encrypt(authToken),
+						phoneNumber: encrypt(phoneNumber),
+					},
+				},
 			},
 			update: {
 				tenantId: tenantId,
-				accountSID: accountSID,
-				authToken: authToken,
-				phoneNumber: phoneNumber,
+				twilioConfig: {
+					update: {
+						accountSID: accountSID,
+						authToken: authToken,
+						phoneNumber: phoneNumber,
+					},
+				},
 			},
-			select: { accountSID: true, authToken: true, phoneNumber: true },
+			select: { twilioConfig: true },
 		});
 
 		return {

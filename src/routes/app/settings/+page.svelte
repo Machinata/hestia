@@ -31,10 +31,11 @@
 		<form id="sms" method="POST" action="?/update" use:enhance>
 			<div class="card-body">
 				<Divider />
+				<!-- Twilio -->
 				<h2 class="text-2xl font-semibold">{messages.settings_category_twilio()}</h2>
 				<TextInput
-					defaultvalue={configs?.accountSID}
-					name="accountSID"
+					defaultvalue={configs?.twilioConfig?.accountSID}
+					name="twilioAccountSID"
 					placeholder="..."
 					bordered
 					fade
@@ -47,8 +48,8 @@
 					{/snippet}
 				</TextInput>
 				<TextInput
-					defaultvalue={configs?.authToken}
-					name="authToken"
+					defaultvalue={configs?.twilioConfig?.authToken}
+					name="twilioAuthToken"
 					placeholder="..."
 					type="password"
 					bordered
@@ -62,8 +63,8 @@
 					{/snippet}
 				</TextInput>
 				<TextInput
-					defaultvalue={configs?.phoneNumber}
-					name="phoneNumber"
+					defaultvalue={configs?.twilioConfig?.phoneNumber}
+					name="twilioPhoneNumber"
 					placeholder="+1XXX-XXX-XXXX"
 					bordered
 					fade
