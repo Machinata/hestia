@@ -32,10 +32,11 @@ model User {
 }
 
 model Tenant {
-  id                  String        @id @default(uuid())
-  clerkOrganizationId String        @unique
-  users               User[]
-  tenantConfig        TenantConfig?
+  id                  String @id @default(uuid())
+  clerkOrganizationId String @unique
+
+  users        User[]
+  tenantConfig TenantConfig?
 
   name String
   slug String @unique
@@ -48,6 +49,17 @@ model TenantConfig {
   id       String @id @default(uuid())
   tenant   Tenant @relation(fields: [tenantId], references: [id])
   tenantId String @unique
+
+  twilioConfig TwilioConfig?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model TwilioConfig {
+  id             String       @id @default(uuid())
+  tenantConfig   TenantConfig @relation(fields: [tenantConfigId], references: [id])
+  tenantConfigId String       @unique
 
   accountSID  String
   authToken   String

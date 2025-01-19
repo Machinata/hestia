@@ -12,14 +12,28 @@ export const load = async (event) => {
 	const configs = await prisma.tenantConfig.findUnique({
 		where: { tenantId: tenantId },
 		select: {
-			accountSID: true,
-			authToken: true,
-			phoneNumber: true,
+			twilioConfig: {
+				select: {
+					accountSID: true,
+					authToken: true,
+					phoneNumber: true,
+				},
+			},
 		},
 	});
 
+	const { success, error: validationError } = zod
+		.object({
+			accountSID: zod.string(),
+		})
+		.safeParse(configs?.twilioConfig);
+
+	if (!success) {
+		logger.warn(validationError.message);
+	}
+
 	return {
-		configs: configs,
+		isTwilioConfigured: success,
 	};
 };
 

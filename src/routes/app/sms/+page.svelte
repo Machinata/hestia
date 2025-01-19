@@ -15,7 +15,6 @@
 		form: ActionData;
 	};
 	let { data, form }: Props = $props();
-	let isConfigMissing = $derived(!data.configs);
 </script>
 
 {#snippet PhoneLabel()}
@@ -35,7 +34,7 @@
 				{/snippet}
 				<span>{form.error}</span>
 			</Alert>
-		{:else if isConfigMissing}
+		{:else if !data.isTwilioConfigured}
 			<Alert status="warning">
 				{#snippet icon()}
 					<TriangleAlert />
@@ -53,7 +52,7 @@
 		<form id="sms" method="POST" action="?/push" use:enhance>
 			<div class="card-body">
 				<TextInput
-					disabled={isConfigMissing}
+					disabled={!data.isTwilioConfigured}
 					type="tel"
 					name="phone"
 					label={PhoneLabel}
@@ -62,7 +61,7 @@
 					fade
 				/>
 				<Textarea
-					disabled={isConfigMissing}
+					disabled={!data.isTwilioConfigured}
 					label={MessageLabel}
 					size="lg"
 					error={form?.error}
@@ -72,7 +71,7 @@
 				/>
 			</div>
 			<div class="card-actions justify-center px-8 pb-4">
-				<Button disabled={isConfigMissing} type="submit" variant="outline" full>
+				<Button disabled={!data.isTwilioConfigured} type="submit" variant="outline" full>
 					{messages.sms_button_submit()}
 				</Button>
 			</div>
