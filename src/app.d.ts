@@ -1,5 +1,7 @@
 // See https://svelte.dev/docs/kit/types#app.d.ts
 
+import type { Tenant, User } from '@prisma/client';
+
 // for information about these interfaces
 declare global {
 	namespace App {
@@ -10,6 +12,8 @@ declare global {
 				orgId?: string | null;
 				sessionId?: string;
 			};
+			user: User;
+			tenant: Tenant;
 		}
 		// interface PageData {}
 		// interface PageState {}

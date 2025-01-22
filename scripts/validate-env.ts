@@ -1,12 +1,26 @@
-import { PhoneRegex } from '../src/lib/regex/phone';
 import { z } from 'zod';
 
 const ValidateEnvironment = () => {
 	const { success, error } = z
 		.object({
-			TWILIO_ACCOUNT_SID: z.string().min(1),
-			TWILIO_AUTH_TOKEN: z.string().min(1),
-			TWILIO_PHONE_NUMBER: z.string().regex(PhoneRegex),
+			SECRETS_PASSWORD: z.string().length(32),
+			SECRETS_SALT: z.string().min(16),
+			SECRETS_IV_POSITION: z.string().transform((val, ctx) => {
+				const parsed = parseInt(val);
+				if (isNaN(parsed)) {
+					ctx.addIssue({
+						code: z.ZodIssueCode.custom,
+						message: 'Not a number',
+					});
+
+					// This is a special symbol you can use to
+					// return early from the transform function.
+					// It has type `never` so it does not affect the
+					// inferred return type.
+					return z.NEVER;
+				}
+				return parsed;
+			}),
 		})
 		.safeParse(process.env);
 
