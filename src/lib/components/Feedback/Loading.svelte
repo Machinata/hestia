@@ -1,16 +1,19 @@
 <script lang="ts">
 	import type { DaisyColor, DaisySize } from '$lib/types';
+	import clsx from 'clsx';
+	import type { SvelteHTMLElements } from 'svelte/elements';
+	import { twMerge } from 'tailwind-merge';
 
 	type Props = {
 		color?: Exclude<DaisyColor, 'ghost'>;
 		size?: DaisySize | 'md';
 		variant?: 'spinner' | 'dots' | 'ring' | 'ball' | 'bars' | 'infinity';
-	};
-	let { color, size = 'md', variant = 'spinner' }: Props = $props();
+	} & Pick<SvelteHTMLElements['span'], 'class'>;
+	let { class: className, color, size = 'md', variant = 'spinner' }: Props = $props();
 </script>
 
 <span
-	class="loading"
+	class={twMerge('loading', clsx(className))}
 	class:text-primary={color === 'primary'}
 	class:text-secondary={color === 'secondary'}
 	class:text-accent={color === 'accent'}
