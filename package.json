@@ -3,6 +3,7 @@
 	"version": "0.0.1",
 	"type": "module",
 	"scripts": {
+		"postinstall": "prisma generate",
 		"dev": "bun validate-env && bun database:up && bun prisma:generate && vite dev",
 		"build": "vite build",
 		"build-storybook": "storybook build",
