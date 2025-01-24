@@ -41,7 +41,7 @@
 		"@storybook/svelte": "^8.4.7",
 		"@storybook/sveltekit": "^8.4.7",
 		"@storybook/test": "^8.4.7",
-		"@sveltejs/adapter-auto": "^3.0.0",
+		"@sveltejs/adapter-cloudflare": "^5.0.1",
 		"@sveltejs/kit": "^2.15.3",
 		"@sveltejs/vite-plugin-svelte": "^5.0.3",
 		"@types/bun": "^1.1.14",
