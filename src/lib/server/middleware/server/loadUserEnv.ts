@@ -2,11 +2,11 @@ import { logger } from '$lib/server/logger';
 import { prisma } from '$lib/server/prisma';
 import type { Handle } from '@sveltejs/kit';
 
-const unAuthedRoutes = ['/login'];
+const publicRoutes = ['/login'];
 
 export function loadUserEnv(): Handle {
 	return async ({ event, resolve }) => {
-		if (event.route.id === null || unAuthedRoutes.includes(event.route.id)) {
+		if (event.url !== null && publicRoutes.includes(event.url.pathname)) {
 			return resolve(event);
 		}
 		try {
@@ -25,7 +25,7 @@ export function loadUserEnv(): Handle {
 			event.locals.user = user;
 		} catch (error) {
 			if (error instanceof Error) {
-				logger.error(error.message);
+				logger.error(error);
 			}
 			return new Response(null, {
 				status: 307,
