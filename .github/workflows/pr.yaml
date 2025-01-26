@@ -17,11 +17,11 @@ jobs:
               run: bun install
             - name: Lint
               run: bun lint
-            - name: Test
-              run: bun test
             - name: Build
               run: bun run build
             - name: Svelte Check
               run: bun check
             - name: Prisma Check
               run: bun prisma:validate
+            - name: Test
+              run: bun test
