@@ -5,7 +5,7 @@
 	import { messages } from '$lib/i18n';
 	import 'clerk-sveltekit/client';
 	import SignOutButton from 'clerk-sveltekit/client/SignOutButton.svelte';
-	import { LogOut, MessageCircleMore } from 'lucide-svelte';
+	import { Cog, LogOut, MessageCircleMore } from 'lucide-svelte';
 	import type { Snippet } from 'svelte';
 	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
@@ -68,11 +68,23 @@
 			class="menu dropdown-content menu-lg z-[1] mt-4 w-52 rounded-box bg-base-200 p-2 text-right shadow"
 		>
 			<li>
-				<button onclick={() => goto('/app/sms')}
-					><MessageCircleMore /> {messages.nav_menu_sms()}</button
-				>
+				<button onclick={() => goto('/app/sms')}>
+					<MessageCircleMore />
+					{messages.nav_menu_sms()}
+				</button>
 			</li>
-			<li><SignOutButton><LogOut /> {messages.nav_menu_logout()}</SignOutButton></li>
+			<li>
+				<button onclick={() => goto('/app/settings')}>
+					<Cog />
+					{messages.nav_menu_settings()}
+				</button>
+			</li>
+			<li>
+				<SignOutButton>
+					<LogOut />
+					{messages.nav_menu_logout()}
+				</SignOutButton>
+			</li>
 		</ul>
 	</div>
 {/snippet}

@@ -21,5 +21,11 @@
 	"sms_label_phone": "Phone Number",
 	"sms_label_message": "Message",
 	"sms_button_submit": "Send Message",
+	"settings_title": "Settings",
+	"settings_category_twilio": "Twilio Config",
+	"settings_twilio_account_sid": "Account SID",
+	"settings_twilio_auth_token": "Auth Token",
+	"settings_twilio_phone_number": "Phone Number",
+	"settings_save": "Save Settings",
 	"error_page_go_home": "Go Home"
 }
