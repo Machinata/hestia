@@ -13,6 +13,7 @@
 </script>
 
 <div
+	{...props}
 	class={twMerge('divider', clsx(className))}
 	class:divider-neutral={color === 'neutral'}
 	class:divider-primary={color === 'primary'}
@@ -26,7 +27,6 @@
 	class:divider-vertical={direction === 'vertical'}
 	class:divider-start={variant === 'start'}
 	class:divider-end={variant === 'end'}
-	{...props}
 >
 	{@render children?.()}
 </div>

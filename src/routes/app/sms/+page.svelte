@@ -68,6 +68,7 @@
 					name="message"
 					placeholder="..."
 					form="sms"
+					resizable={false}
 				/>
 			</div>
 			<div class="card-actions justify-center px-8 pb-4">
