@@ -24,4 +24,4 @@ jobs:
             - name: Prisma Check
               run: bun prisma:validate
             - name: Test
-              run: bun test
+              run: 'bun run test:unit'
