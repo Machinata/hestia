@@ -14,6 +14,7 @@
 </script>
 
 <div
+	{...props}
 	class={twMerge('tooltip', clsx(className))}
 	class:tooltip-primary={color === 'primary'}
 	class:tooltip-secondary={color === 'secondary'}
@@ -28,7 +29,6 @@
 	class:tooltip-left={position === 'left'}
 	class:tooltip-right={position === 'right'}
 	data-tip={tip}
-	{...props}
 >
 	{@render children?.()}
 </div>

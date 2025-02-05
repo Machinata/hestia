@@ -10,6 +10,7 @@
 </script>
 
 <a
+	{...props}
 	class={twMerge('link', clsx(className))}
 	class:link-primary={color === 'primary'}
 	class:link-secondary={color === 'secondary'}
@@ -19,6 +20,5 @@
 	class:link-success={color === 'success'}
 	class:link-warning={color === 'warning'}
 	class:link-error={color === 'error'}
-	class:link-hover={hover}
-	{...props}>{@render children?.()}</a
+	class:link-hover={hover}>{@render children?.()}</a
 >

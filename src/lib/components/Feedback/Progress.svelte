@@ -11,6 +11,7 @@
 </script>
 
 <progress
+	{...props}
 	class={twMerge('progress', clsx(className))}
 	class:progress-primary={color === 'primary'}
 	class:progress-secondary={color === 'secondary'}
@@ -19,7 +20,6 @@
 	class:progress-success={color === 'success'}
 	class:progress-warning={color === 'warning'}
 	class:progress-error={color === 'error'}
-	{...props}
 >
 	{@render children?.()}
 </progress>
