@@ -31,11 +31,24 @@ model User {
   @@unique([clerkId, tenantId])
 }
 
+model Resident {
+  id       String @id @default(uuid())
+  tenant   Tenant @relation(fields: [tenantId], references: [id])
+  tenantId String
+
+  name        String
+  phoneNumber String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 model Tenant {
   id                  String @id @default(uuid())
   clerkOrganizationId String @unique
 
   users        User[]
+  residents    Resident[]
   tenantConfig TenantConfig?
 
   name String
