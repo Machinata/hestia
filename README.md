@@ -1,12 +1,16 @@
 # Hestia
 
-Hestia is an early stage project
+<!--toc:start-->
 
-- [Setup](#setup)
-- [Developing](#developing)
-    - [Modifying Database Schema](#modifying-database-schema)
-- [Building](#building)
-- [Stack](#stack)
+- [Hestia](#hestia)
+    - [Setup](#setup)
+    - [Developing](#developing)
+        - [Modifying Database Schema](#modifying-database-schema)
+    - [Building](#building)
+    - [Stack](#stack) - [Frontend](#frontend) - [Backend](#backend) - [Tools](#tools)
+          <!--toc:end-->
+
+Hestia is an early stage project
 
 ## Setup
 
