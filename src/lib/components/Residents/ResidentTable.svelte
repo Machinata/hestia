@@ -5,7 +5,7 @@
 	import { twMerge } from 'tailwind-merge';
 
 	type Props = {
-		items: Pick<Resident, 'id' | 'name' | 'phoneNumber'>[];
+		items?: Pick<Resident, 'id' | 'name' | 'phoneNumber'>[];
 	} & Omit<SvelteHTMLElements['table'], 'children'>;
 
 	let { items, class: className, ...props }: Props = $props();
@@ -22,12 +22,14 @@
 	</thead>
 	<tbody>
 		<!-- items -->
-		{#each items as resident, index (resident.id)}
-			<tr class="hover">
-				<th>{index + 1}</th>
-				<td>{resident.name}</td>
-				<td>{resident.phoneNumber}</td>
-			</tr>
-		{/each}
+		{#if items}
+			{#each items as resident, index (resident.id)}
+				<tr class="hover">
+					<th>{index + 1}</th>
+					<td>{resident.name}</td>
+					<td>{resident.phoneNumber}</td>
+				</tr>
+			{/each}
+		{/if}
 	</tbody>
 </table>

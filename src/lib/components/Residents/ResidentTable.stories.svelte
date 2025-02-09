@@ -6,7 +6,6 @@
 	const { Story } = defineMeta({
 		title: 'Residents/Resident Table',
 		component: ResidentTable,
-		argTypes: {},
 	});
 </script>
 
@@ -17,5 +16,13 @@
 <Story
 	name="Default"
 	children={template}
-	args={{ items: [{ name: 'Resident 1', phoneNumber: '111-1111' }] }}
+	args={{
+		items: [
+			{
+				id: '99fc03e9-3ed1-4047-b9ad-0bf2a9025eaa',
+				name: 'Resident 1',
+				phoneNumber: '111-1111',
+			},
+		],
+	}}
 />
