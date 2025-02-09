@@ -17,14 +17,6 @@
 	let { data, form }: Props = $props();
 </script>
 
-{#snippet PhoneLabel()}
-	<PhoneOutgoing size="18" /> {messages.sms_label_phone()}
-{/snippet}
-
-{#snippet MessageLabel()}
-	<MessageCircleMore size="18" /> {messages.sms_label_message()}
-{/snippet}
-
 <div class="page" transition:fade>
 	<div class="card bg-base-200 px-4 pt-4 shadow-xl">
 		{#if form?.error}
@@ -55,21 +47,27 @@
 					disabled={!data.isTwilioConfigured}
 					type="tel"
 					name="phone"
-					label={PhoneLabel}
 					placeholder="XXX-XXX-XXXX"
 					bordered
 					fade
-				/>
+				>
+					{#snippet label()}
+						<PhoneOutgoing size="18" /> {messages.sms_label_phone()}
+					{/snippet}
+				</TextInput>
 				<Textarea
 					disabled={!data.isTwilioConfigured}
-					label={MessageLabel}
 					size="lg"
 					error={form?.error}
 					name="message"
 					placeholder="..."
 					form="sms"
 					resizable={false}
-				/>
+				>
+					{#snippet label()}
+						<MessageCircleMore size="18" /> {messages.sms_label_message()}
+					{/snippet}
+				</Textarea>
 			</div>
 			<div class="card-actions justify-center px-8 pb-4">
 				<Button disabled={!data.isTwilioConfigured} type="submit" variant="outline" full>
