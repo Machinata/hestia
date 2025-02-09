@@ -5,7 +5,7 @@
 	import { messages } from '$lib/i18n';
 	import 'clerk-sveltekit/client';
 	import SignOutButton from 'clerk-sveltekit/client/SignOutButton.svelte';
-	import { Cog, LogOut, MessageCircleMore } from 'lucide-svelte';
+	import { Cog, LogOut, MessageCircleMore, UsersRound } from 'lucide-svelte';
 	import type { Snippet } from 'svelte';
 	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
@@ -65,12 +65,18 @@
 		<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 		<ul
 			tabindex="0"
-			class="menu dropdown-content menu-lg z-[1] mt-4 w-52 rounded-box bg-base-200 p-2 text-right shadow"
+			class="menu dropdown-content menu-lg z-[1] mt-4 w-52 rounded-box border border-neutral bg-base-200 p-2 text-right shadow"
 		>
 			<li>
 				<button onclick={() => goto('/app/sms')}>
 					<MessageCircleMore />
 					{messages.nav_menu_sms()}
+				</button>
+			</li>
+			<li>
+				<button onclick={() => goto('/app/residents')}>
+					<UsersRound />
+					{messages.nav_menu_residents()}
 				</button>
 			</li>
 			<li>
@@ -89,20 +95,24 @@
 	</div>
 {/snippet}
 
-<Navbar>
-	{#snippet start()}
-		<Button onclick={() => goto('/app')}>
-			<h2 class="prose prose-xl">Hestia</h2>
-		</Button>
-	{/snippet}
-	{#snippet center()}
-		<h1 class="prose prose-2xl">Svelte</h1>
-	{/snippet}
-	{#snippet end()}
-		<div class="flex items-center gap-3">
-			<p class="prose prose-lg">{message}</p>
-			{@render userMenu()}
-		</div>
-	{/snippet}
-</Navbar>
-{@render children()}
+<div class="flex h-full flex-col items-stretch gap-4">
+	<Navbar>
+		{#snippet start()}
+			<Button onclick={() => goto('/app')} class="rounded-box" color="ghost">
+				<h2 class="prose prose-xl">Hestia</h2>
+			</Button>
+		{/snippet}
+		{#snippet center()}
+			<h1 class="prose prose-2xl">Svelte</h1>
+		{/snippet}
+		{#snippet end()}
+			<div class="flex items-center gap-3">
+				<p class="prose prose-lg">{message}</p>
+				{@render userMenu()}
+			</div>
+		{/snippet}
+	</Navbar>
+	<div class="h-full rounded-box bg-base-200 p-8">
+		{@render children()}
+	</div>
+</div>
