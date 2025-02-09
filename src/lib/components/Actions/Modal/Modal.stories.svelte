@@ -16,15 +16,18 @@
 			},
 		},
 	});
+
+	let dialog: HTMLDialogElement | undefined = $state(undefined);
 </script>
 
 {#snippet template({ children: _, ...props }: Partial<ComponentProps<typeof Modal>>)}
-	<Modal {...props}>
+	<Button onclick={() => dialog?.showModal()}>Open</Button>
+	<Modal {...props} backdrop bind:dialog>
 		<ModalBody>
 			<h3 class="text-lg font-bold">Hello!</h3>
 			<p class="py-4">Press ESC key or click the button below to close</p>
 			<ModalActions>
-				<Button>Close</Button>
+				<Button onclick={() => dialog?.close()}>Close</Button>
 			</ModalActions>
 		</ModalBody>
 	</Modal>
