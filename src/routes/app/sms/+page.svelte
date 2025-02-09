@@ -17,6 +17,43 @@
 	let { data, form }: Props = $props();
 </script>
 
+{#snippet Form()}
+	<form id="sms" method="POST" action="?/push" use:enhance>
+		<div class="card-body">
+			<TextInput
+				disabled={!data.isTwilioConfigured}
+				type="tel"
+				name="phone"
+				placeholder="XXX-XXX-XXXX"
+				bordered
+				fade
+			>
+				{#snippet label()}
+					<PhoneOutgoing size="18" /> {messages.sms_label_phone()}
+				{/snippet}
+			</TextInput>
+			<Textarea
+				disabled={!data.isTwilioConfigured}
+				size="lg"
+				error={form?.error}
+				name="message"
+				placeholder="..."
+				form="sms"
+				resizable={false}
+			>
+				{#snippet label()}
+					<MessageCircleMore size="18" /> {messages.sms_label_message()}
+				{/snippet}
+			</Textarea>
+		</div>
+		<div class="card-actions justify-center px-8 pb-4">
+			<Button disabled={!data.isTwilioConfigured} type="submit" variant="outline" full>
+				{messages.sms_button_submit()}
+			</Button>
+		</div>
+	</form>
+{/snippet}
+
 <div class="page" transition:fade>
 	<div class="card bg-base-200 px-4 pt-4 shadow-xl">
 		{#if form?.error}
@@ -41,40 +78,7 @@
 		<div class="card-title justify-center">
 			<h2 class="text-2xl font-semibold">{messages.sms_prompt()}</h2>
 		</div>
-		<form id="sms" method="POST" action="?/push" use:enhance>
-			<div class="card-body">
-				<TextInput
-					disabled={!data.isTwilioConfigured}
-					type="tel"
-					name="phone"
-					placeholder="XXX-XXX-XXXX"
-					bordered
-					fade
-				>
-					{#snippet label()}
-						<PhoneOutgoing size="18" /> {messages.sms_label_phone()}
-					{/snippet}
-				</TextInput>
-				<Textarea
-					disabled={!data.isTwilioConfigured}
-					size="lg"
-					error={form?.error}
-					name="message"
-					placeholder="..."
-					form="sms"
-					resizable={false}
-				>
-					{#snippet label()}
-						<MessageCircleMore size="18" /> {messages.sms_label_message()}
-					{/snippet}
-				</Textarea>
-			</div>
-			<div class="card-actions justify-center px-8 pb-4">
-				<Button disabled={!data.isTwilioConfigured} type="submit" variant="outline" full>
-					{messages.sms_button_submit()}
-				</Button>
-			</div>
-		</form>
+		{@render Form()}
 	</div>
 </div>
 
