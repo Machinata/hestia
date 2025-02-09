@@ -1,0 +1,58 @@
+import { PhoneRegex } from '$lib/regex/phone.js';
+import { logger } from '$lib/server/logger/index.js';
+import { prisma } from '$lib/server/prisma';
+import { fail } from '@sveltejs/kit';
+import zod from 'zod';
+
+export const load = async ({ locals }) => {
+	const residents = await prisma.resident.findMany({
+		where: {
+			tenantId: locals.tenant.id,
+		},
+		select: {
+			id: true,
+			name: true,
+			phoneNumber: true,
+		},
+	});
+
+	return {
+		residents: residents,
+	};
+};
+
+export const actions = {
+	default: async (event) => {
+		const form = await event.request.formData();
+
+		if (!form.has('name')) {
+			return fail(400, { error: 'phone_missing' });
+		}
+		if (!form.get('phoneNumber')) {
+			return fail(400, { error: 'message_missing' });
+		}
+
+		const name = form.get('name');
+		if (typeof name !== 'string') {
+			return fail(400, { error: 'invalid_name' });
+		}
+
+		const {
+			success: phoneSuccess,
+			data: phone,
+			error: phoneError,
+		} = zod.string().regex(PhoneRegex).safeParse(form.get('phoneNumber'));
+		if (!phoneSuccess) {
+			logger.error(phoneError);
+			return fail(400, { error: 'invalid_phone' });
+		}
+
+		await prisma.resident.create({
+			data: {
+				name: name,
+				phoneNumber: phone,
+				tenantId: event.locals.tenant.id,
+			},
+		});
+	},
+};
