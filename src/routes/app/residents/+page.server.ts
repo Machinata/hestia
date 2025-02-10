@@ -32,6 +32,11 @@ export const actions = {
 			return fail(400, { error: 'message_missing' });
 		}
 
+		const id = form.get('id');
+		if (id && typeof id !== 'string') {
+			return fail(400, { error: 'invalid_id' });
+		}
+
 		const name = form.get('name');
 		if (typeof name !== 'string') {
 			return fail(400, { error: 'invalid_name' });
@@ -47,11 +52,18 @@ export const actions = {
 			return fail(400, { error: 'invalid_phone' });
 		}
 
-		await prisma.resident.create({
-			data: {
+		await prisma.resident.upsert({
+			where: {
+				id: id ?? '',
+			},
+			create: {
 				name: name,
 				phoneNumber: phone,
 				tenantId: event.locals.tenant.id,
+			},
+			update: {
+				name: name,
+				phoneNumber: phone,
 			},
 		});
 	},

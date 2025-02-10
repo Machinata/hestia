@@ -2,7 +2,7 @@
 	import { enhance } from '$app/forms';
 	import { Button, Modal, ModalActions, ModalBody } from '$lib/components/Actions';
 	import { TextInput } from '$lib/components/DataInput';
-	import { ResidentTable } from '$lib/components/Residents';
+	import { ResidentTable, type ResidentItem } from '$lib/components/Residents';
 	import { messages } from '$lib/i18n';
 	import { Phone, UserRound, UserRoundPlus } from 'lucide-svelte';
 	import { fade } from 'svelte/transition';
@@ -17,25 +17,42 @@
 
 	let residents = $derived(data.residents);
 
-	let dialog = $state<HTMLDialogElement | undefined>(undefined);
+	let dialog: HTMLDialogElement | undefined = $state(undefined);
+	let form: HTMLFormElement | undefined = $state(undefined);
+
+	let resident: ResidentItem | undefined = $state(undefined);
 </script>
 
-<Modal backdrop bind:dialog>
+<Modal
+	backdrop
+	bind:dialog
+	onclose={() => {
+		resident = undefined;
+		form?.reset();
+	}}
+>
 	<ModalBody>
 		<div class="flex items-center justify-between">
-			<h2 class="text-2xl">{messages.residents_modal_title()}</h2>
+			<h2 class="text-2xl">
+				{resident
+					? messages.residents_modal_title_edit()
+					: messages.residents_modal_title_new()}
+			</h2>
 			<form method="dialog">
 				<button class="btn btn-square btn-ghost btn-sm">✕</button>
 			</form>
 		</div>
-		<form method="POST" use:enhance>
-			<TextInput bordered name="name">
+		<form method="POST" bind:this={form} use:enhance>
+			{#if resident}
+				<input type="hidden" name="id" value={resident.id} />
+			{/if}
+			<TextInput bordered name="name" value={resident?.name}>
 				{#snippet label()}
 					<UserRound size="18" />
 					{messages.residents_modal_label_name()}
 				{/snippet}
 			</TextInput>
-			<TextInput bordered name="phoneNumber" type={'tel'}>
+			<TextInput bordered name="phoneNumber" type={'tel'} value={resident?.phoneNumber}>
 				{#snippet label()}
 					<Phone size="18" />
 					{messages.residents_modal_label_phone()}
@@ -61,5 +78,11 @@
 		>
 	</div>
 	<div class="divider"></div>
-	<ResidentTable items={residents} />
+	<ResidentTable
+		items={residents}
+		onEdit={(r) => {
+			resident = r;
+			dialog?.showModal();
+		}}
+	/>
 </div>
