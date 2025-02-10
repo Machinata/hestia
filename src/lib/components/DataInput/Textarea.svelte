@@ -11,7 +11,7 @@
 		error?: string | Snippet;
 		label?: string | Snippet;
 		resizable?: boolean | 'yes' | 'no' | 'x' | 'y';
-		size?: DaisySize;
+		size?: DaisySize | 'md';
 	} & SvelteHTMLElements['textarea'];
 	let {
 		bordered,
@@ -25,7 +25,7 @@
 	}: Props = $props();
 </script>
 
-<label class="form-control w-full max-w-lg">
+<label class="form-control w-full">
 	<div class="label">
 		<span
 			class="label-text flex items-center gap-2"
