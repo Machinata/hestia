@@ -27,7 +27,7 @@ export const load = async (event) => {
 };
 
 export const actions = {
-	update: async (event) => {
+	default: async (event) => {
 		const form = await event.request.formData();
 		const tenantId = event.locals.tenant.id;
 
