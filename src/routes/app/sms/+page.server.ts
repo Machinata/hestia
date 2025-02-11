@@ -37,7 +37,7 @@ export const load = async (event) => {
 };
 
 export const actions = {
-	push: async (event) => {
+	default: async (event) => {
 		const form = await event.request.formData();
 
 		if (!form.has('phone')) {

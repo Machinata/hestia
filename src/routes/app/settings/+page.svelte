@@ -2,11 +2,10 @@
 	import { enhance } from '$app/forms';
 	import { Button } from '$lib/components/Actions';
 	import { TextInput } from '$lib/components/DataInput';
+	import Divider from '$lib/components/Layout/Divider.svelte';
 	import { messages } from '$lib/i18n';
 	import { Fingerprint, KeyRound, PhoneOutgoing } from 'lucide-svelte';
-	import { fade } from 'svelte/transition';
 	import type { ActionData, PageData } from './$types';
-	import Divider from '$lib/components/Layout/Divider.svelte';
 
 	type Props = {
 		data: PageData;
@@ -17,18 +16,18 @@
 	let configs = $derived(form?.configs ?? data.configs);
 </script>
 
-<div class="page" transition:fade>
+<div class="page">
 	<div class="card w-full max-w-xl bg-base-200 px-4 pt-4 shadow-xl">
 		<div class="card-title justify-center">
 			<h2 class="text-2xl font-semibold">{messages.settings_title()}</h2>
 			{#if form?.error}
-				<div role="alert" class="alert alert-error absolute -top-20" transition:fade>
+				<div role="alert" class="alert alert-error absolute -top-20">
 					<i class="fi fi-bs-octagon-xmark h-6 w-6 shrink-0"></i>
 					<span>{form.error}</span>
 				</div>
 			{/if}
 		</div>
-		<form id="sms" method="POST" action="?/update" use:enhance>
+		<form id="sms" method="POST" use:enhance>
 			<div class="card-body">
 				<Divider />
 				<!-- Twilio -->

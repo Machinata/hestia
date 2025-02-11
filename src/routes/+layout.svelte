@@ -8,16 +8,16 @@
 	let { children } = $props();
 </script>
 
-<div class="layout">
-	<ParaglideJS {i18n}>
-		<ClerkProvider publishableKey={PUBLIC_CLERK_PUBLISHABLE_KEY}>
+<ParaglideJS {i18n}>
+	<ClerkProvider publishableKey={PUBLIC_CLERK_PUBLISHABLE_KEY}>
+		<div class="layout">
 			{@render children()}
-		</ClerkProvider>
-	</ParaglideJS>
-</div>
+		</div>
+	</ClerkProvider>
+</ParaglideJS>
 
 <style>
 	.layout {
-		@apply h-screen w-screen bg-base-100;
+		@apply h-screen w-screen p-8;
 	}
 </style>

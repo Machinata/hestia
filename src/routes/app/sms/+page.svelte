@@ -7,7 +7,6 @@
 	import { Link } from '$lib/components/Navigation';
 	import { messages } from '$lib/i18n';
 	import { CircleX, MessageCircleMore, PhoneOutgoing, TriangleAlert } from 'lucide-svelte';
-	import { fade } from 'svelte/transition';
 	import type { ActionData, PageData } from './$types';
 
 	type Props = {
@@ -25,7 +24,7 @@
 	<MessageCircleMore size="18" /> {messages.sms_label_message()}
 {/snippet}
 
-<div class="page" transition:fade>
+<div class="page">
 	<div class="card bg-base-200 px-4 pt-4 shadow-xl">
 		{#if form?.error}
 			<Alert status="error">
@@ -49,7 +48,7 @@
 		<div class="card-title justify-center">
 			<h2 class="text-2xl font-semibold">{messages.sms_prompt()}</h2>
 		</div>
-		<form id="sms" method="POST" action="?/push" use:enhance>
+		<form id="sms" method="POST" use:enhance>
 			<div class="card-body">
 				<TextInput
 					disabled={!data.isTwilioConfigured}
