@@ -28,6 +28,7 @@
 	"residents_modal_title_new": "Create a Resident",
 	"residents_modal_title_edit": "Edit Resident",
 	"residents_modal_submit": "Submit",
+	"residents_modal_delete": "Delete",
 	"residents_modal_label_name": "Name",
 	"residents_modal_label_phone": "Phone Number",
 	"settings_title": "Settings",

@@ -4,8 +4,7 @@
 	import { TextInput } from '$lib/components/DataInput';
 	import { ResidentTable, type ResidentItem } from '$lib/components/Residents';
 	import { messages } from '$lib/i18n';
-	import { Phone, UserRound, UserRoundPlus } from 'lucide-svelte';
-	import { fade } from 'svelte/transition';
+	import { Phone, UserRound, UserRoundPlus, X } from 'lucide-svelte';
 	import type { ActionData, PageData } from './$types';
 
 	type Props = {
@@ -39,10 +38,12 @@
 					: messages.residents_modal_title_new()}
 			</h2>
 			<form method="dialog">
-				<button class="btn btn-square btn-ghost btn-sm">✕</button>
+				<Button color="ghost" shape="square" size="sm">
+					<X />
+				</Button>
 			</form>
 		</div>
-		<form method="POST" bind:this={form} use:enhance>
+		<form method="POST" action="?/upsert" bind:this={form} use:enhance>
 			{#if resident}
 				<input type="hidden" name="id" value={resident.id} />
 			{/if}
@@ -58,16 +59,25 @@
 					{messages.residents_modal_label_phone()}
 				{/snippet}
 			</TextInput>
-			<ModalActions>
-				<Button type="submit" block onclick={() => dialog?.close()}
-					>{messages.residents_modal_submit()}</Button
+			<ModalActions class="flex">
+				<Button
+					class="grow"
+					type="submit"
+					formaction="?/delete"
+					color="error"
+					onclick={() => dialog?.close()}
 				>
+					{messages.residents_modal_delete()}
+				</Button>
+				<Button class="grow" type="submit" color="primary" onclick={() => dialog?.close()}>
+					{messages.residents_modal_submit()}
+				</Button>
 			</ModalActions>
 		</form>
 	</ModalBody>
 </Modal>
 
-<div class="mx-auto flex max-w-5xl flex-col items-stretch gap-2" transition:fade>
+<div class="mx-auto flex max-w-5xl flex-col items-stretch gap-2">
 	<div class="flex items-center justify-between">
 		<h1 class="text-4xl">{messages.residents_title()}</h1>
 		<Button

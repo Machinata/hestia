@@ -22,7 +22,7 @@ export const load = async ({ locals }) => {
 };
 
 export const actions = {
-	default: async (event) => {
+	upsert: async (event) => {
 		const form = await event.request.formData();
 
 		if (!form.has('name')) {
@@ -64,6 +64,26 @@ export const actions = {
 			update: {
 				name: name,
 				phoneNumber: phone,
+			},
+		});
+	},
+	delete: async (event) => {
+		const form = await event.request.formData();
+
+		logger.info('Deleting Resident');
+
+		if (!form.has('id')) {
+			return fail(400, { error: 'id_missing' });
+		}
+
+		const id = form.get('id');
+		if (typeof id !== 'string') {
+			return fail(400, { error: 'invalid_id' });
+		}
+
+		await prisma.resident.delete({
+			where: {
+				id: id,
 			},
 		});
 	},
