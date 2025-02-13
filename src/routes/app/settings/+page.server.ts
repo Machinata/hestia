@@ -1,5 +1,4 @@
 import { PhoneRegex } from '$lib/regex';
-import { encrypt } from '$lib/server/crypto/encryption.js';
 import { logger } from '$lib/server/logger';
 import { prisma } from '$lib/server/prisma';
 import { fail, type Actions } from '@sveltejs/kit';
@@ -67,9 +66,9 @@ export const actions = {
 				tenantId: tenantId,
 				twilioConfig: {
 					create: {
-						accountSID: encrypt(accountSID),
-						authToken: encrypt(authToken),
-						phoneNumber: encrypt(phoneNumber),
+						accountSID: accountSID,
+						authToken: authToken,
+						phoneNumber: phoneNumber,
 					},
 				},
 			},

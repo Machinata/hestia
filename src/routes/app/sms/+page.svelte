@@ -2,11 +2,12 @@
 	import { enhance } from '$app/forms';
 	import { goto } from '$app/navigation';
 	import { Button } from '$lib/components/Actions';
-	import { Textarea, TextInput } from '$lib/components/DataInput';
+	import { Textarea } from '$lib/components/DataInput';
 	import { Alert } from '$lib/components/Feedback';
 	import { Link } from '$lib/components/Navigation';
+	import { RecipientList, type Recipient } from '$lib/components/SMS';
 	import { messages } from '$lib/i18n';
-	import { CircleX, MessageCircleMore, PhoneOutgoing, TriangleAlert } from 'lucide-svelte';
+	import { CircleX, MessageCircleMore, TriangleAlert } from 'lucide-svelte';
 	import type { ActionData, PageData } from './$types';
 
 	type Props = {
@@ -14,73 +15,66 @@
 		form: ActionData;
 	};
 	let { data, form }: Props = $props();
+
+	let recipients = $derived(
+		data.residents.map((r) => ({ id: r.id, name: r.name, phone: r.phoneNumber }))
+	);
+	let selectedRecipients: Recipient[] = $state([]);
 </script>
 
-{#snippet PhoneLabel()}
-	<PhoneOutgoing size="18" /> {messages.sms_label_phone()}
-{/snippet}
-
-{#snippet MessageLabel()}
-	<MessageCircleMore size="18" /> {messages.sms_label_message()}
-{/snippet}
-
-<div class="page">
-	<div class="card bg-base-200 px-4 pt-4 shadow-xl">
-		{#if form?.error}
-			<Alert status="error">
-				{#snippet icon()}
-					<CircleX />
-				{/snippet}
-				<span>{form.error}</span>
-			</Alert>
-		{:else if !data.isTwilioConfigured}
-			<Alert status="warning">
-				{#snippet icon()}
-					<TriangleAlert />
-				{/snippet}
-				<span>
-					Twilio must be configured on the <Link onclick={() => goto('/app/settings')}
-						>Settings</Link
-					> page
-				</span>
-			</Alert>
-		{/if}
-		<div class="card-title justify-center">
-			<h2 class="text-2xl font-semibold">{messages.sms_prompt()}</h2>
+<div class="flex flex-col items-center gap-4">
+	{#if form?.error}
+		<Alert class="flex w-fit justify-center" status="error">
+			{#snippet icon()}
+				<CircleX />
+			{/snippet}
+			<span>{form.error}</span>
+		</Alert>
+	{:else if !data.isTwilioConfigured}
+		<Alert class="flex w-fit justify-center" status="warning">
+			{#snippet icon()}
+				<TriangleAlert />
+			{/snippet}
+			<span>
+				Twilio must be configured on the <Link onclick={() => goto('/app/settings')}
+					>Settings</Link
+				> page
+			</span>
+		</Alert>
+	{/if}
+	<h2 class="text-4xl font-semibold">{messages.sms_prompt()}</h2>
+	<div class="flex justify-center gap-4">
+		<div class="flex flex-col items-center gap-2">
+			<h2 class="text-3xl font-medium">Recipients</h2>
+			<div class="h-full overflow-y-scroll rounded-lg bg-base-100 p-4">
+				<RecipientList {recipients} bind:selected={selectedRecipients} />
+			</div>
 		</div>
 		<form id="sms" method="POST" use:enhance>
-			<div class="card-body">
-				<TextInput
-					disabled={!data.isTwilioConfigured}
-					type="tel"
-					name="phone"
-					label={PhoneLabel}
-					placeholder="XXX-XXX-XXXX"
-					bordered
-					fade
-				/>
+			<div class="flex flex-col gap-4">
+				<input name="recipients" type="hidden" value={JSON.stringify(selectedRecipients)} />
 				<Textarea
 					disabled={!data.isTwilioConfigured}
-					label={MessageLabel}
 					size="lg"
 					error={form?.error}
 					name="message"
 					placeholder="..."
 					form="sms"
 					resizable={false}
-				/>
-			</div>
-			<div class="card-actions justify-center px-8 pb-4">
-				<Button disabled={!data.isTwilioConfigured} type="submit" variant="outline" full>
+					cols={40}
+					rows={12}
+				>
+					{#snippet label()}
+						<span class="flex items-center gap-2 text-xl">
+							<MessageCircleMore size="22" />
+							{messages.sms_label_message()}
+						</span>
+					{/snippet}
+				</Textarea>
+				<Button full color="primary" disabled={!data.isTwilioConfigured} type="submit">
 					{messages.sms_button_submit()}
 				</Button>
 			</div>
 		</form>
 	</div>
 </div>
-
-<style>
-	.page {
-		@apply flex flex-col items-center justify-around gap-24 py-[10%];
-	}
-</style>

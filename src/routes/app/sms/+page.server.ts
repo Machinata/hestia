@@ -1,4 +1,4 @@
-import { PhoneRegex } from '$lib/regex';
+import type { Recipient } from '$lib/components/SMS';
 import { logger } from '$lib/server/logger';
 import { prisma } from '$lib/server/prisma/index.js';
 import { fail, type Actions } from '@sveltejs/kit';
@@ -31,8 +31,20 @@ export const load = async (event) => {
 		logger.warn(validationError.message);
 	}
 
+	const residents = await prisma.resident.findMany({
+		where: {
+			tenantId: event.locals.tenant.id,
+		},
+		select: {
+			id: true,
+			name: true,
+			phoneNumber: true,
+		},
+	});
+
 	return {
 		isTwilioConfigured: success,
+		residents: residents,
 	};
 };
 
@@ -40,22 +52,18 @@ export const actions = {
 	default: async (event) => {
 		const form = await event.request.formData();
 
-		if (!form.has('phone')) {
-			return fail(400, { error: 'phone_missing' });
+		if (!form.has('recipients')) {
+			return fail(400, { error: 'recipients_missing' });
 		}
-		if (!form.get('message')) {
+		if (!form.has('message')) {
 			return fail(400, { error: 'message_missing' });
 		}
 
-		const {
-			success: phoneSuccess,
-			data: phone,
-			error: phoneError,
-		} = zod.string().regex(PhoneRegex).safeParse(form.get('phone'));
-		if (!phoneSuccess) {
-			logger.error(phoneError);
-			return fail(400, { error: 'invalid_phone' });
+		const recipients: Recipient[] = JSON.parse(form.get('recipients') as string);
+		if (!Array.isArray(recipients)) {
+			return fail(400, { error: 'invalid_recipients' });
 		}
+		logger.info(recipients);
 
 		const message = form.get('message');
 		if (typeof message !== 'string') {
@@ -78,17 +86,20 @@ export const actions = {
 
 		const client = twilio(config.accountSID, config.authToken);
 
-		try {
-			const result = await client.messages.create({
-				to: phone,
-				body: message,
-				from: config.phoneNumber,
-			});
-			logger.debug(result);
-		} catch (e) {
-			logger.error(e);
-			fail(500, { success: false });
+		for (const recipient of recipients) {
+			try {
+				const result = await client.messages.create({
+					to: recipient.phone,
+					body: message,
+					from: config.phoneNumber,
+				});
+				logger.debug(result);
+			} catch (e) {
+				logger.error(e);
+				fail(500, { success: false });
+			}
 		}
+
 		return {
 			success: true,
 		};
