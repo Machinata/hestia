@@ -1,6 +1,7 @@
 import type { Recipient } from '$lib/components/SMS';
 import { logger } from '$lib/server/logger';
 import { prisma } from '$lib/server/prisma/index.js';
+import { decryptTwilioConfig } from '$lib/server/twilio/index.js';
 import { fail, type Actions } from '@sveltejs/kit';
 import twilio from 'twilio';
 import zod from 'zod';
@@ -24,6 +25,8 @@ export const load = async (event) => {
 	const { success, error: validationError } = zod
 		.object({
 			accountSID: zod.string(),
+			authToken: zod.string(),
+			phoneNumber: zod.string(),
 		})
 		.safeParse(configs?.twilioConfig);
 
@@ -84,14 +87,16 @@ export const actions = {
 			return fail(307, { error: 'no_twilio_config' });
 		}
 
-		const client = twilio(config.accountSID, config.authToken);
+		const decryptedConfig = decryptTwilioConfig(config);
+
+		const client = twilio(decryptedConfig.accountSID, decryptedConfig.authToken);
 
 		for (const recipient of recipients) {
 			try {
 				const result = await client.messages.create({
 					to: recipient.phone,
 					body: message,
-					from: config.phoneNumber,
+					from: decryptedConfig.phoneNumber,
 				});
 				logger.debug(result);
 			} catch (e) {
