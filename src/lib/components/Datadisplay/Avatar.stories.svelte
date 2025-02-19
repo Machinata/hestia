@@ -1,6 +1,5 @@
 <script module lang="ts">
 	import { defineMeta } from '@storybook/addon-svelte-csf';
-	import type { ComponentProps } from 'svelte';
 	import Avatar from './Avatar.svelte';
 
 	const { Story } = defineMeta({
@@ -12,6 +11,7 @@
 			},
 			placeholder: {
 				control: 'text',
+				defaultValue: 'DP',
 			},
 			presence: {
 				control: 'select',
@@ -43,14 +43,9 @@
 	});
 </script>
 
-{#snippet template(props: ComponentProps<typeof Avatar>)}
-	<Avatar {...props} />
-{/snippet}
-
 <Story
 	name="Default"
 	args={{
 		img: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp',
 	}}
-	children={template}
 />
