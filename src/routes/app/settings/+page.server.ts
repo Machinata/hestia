@@ -1,7 +1,7 @@
 import { PhoneRegex } from '$lib/regex';
-import { encrypt } from '$lib/server/crypto/encryption.js';
 import { logger } from '$lib/server/logger';
 import { prisma } from '$lib/server/prisma';
+import { encryptTwilioConfig, decryptTwilioConfig } from '$lib/server/twilio';
 import { fail, type Actions } from '@sveltejs/kit';
 import zod from 'zod';
 
@@ -21,8 +21,16 @@ export const load = async (event) => {
 		},
 	});
 
+	if (!configs) {
+		return {};
+	}
+
 	return {
-		configs: configs,
+		configs: {
+			...(configs.twilioConfig && {
+				twilioConfig: decryptTwilioConfig(configs.twilioConfig),
+			}),
+		},
 	};
 };
 
@@ -66,28 +74,32 @@ export const actions = {
 			create: {
 				tenantId: tenantId,
 				twilioConfig: {
-					create: {
-						accountSID: encrypt(accountSID),
-						authToken: encrypt(authToken),
-						phoneNumber: encrypt(phoneNumber),
-					},
+					create: encryptTwilioConfig({
+						accountSID: accountSID,
+						authToken: authToken,
+						phoneNumber: phoneNumber,
+					}),
 				},
 			},
 			update: {
 				tenantId: tenantId,
 				twilioConfig: {
-					update: {
+					update: encryptTwilioConfig({
 						accountSID: accountSID,
 						authToken: authToken,
 						phoneNumber: phoneNumber,
-					},
+					}),
 				},
 			},
 			select: { twilioConfig: true },
 		});
 
 		return {
-			configs: configs,
+			configs: {
+				...(configs.twilioConfig && {
+					twilioConfig: decryptTwilioConfig(configs.twilioConfig),
+				}),
+			},
 		};
 	},
 } satisfies Actions;
