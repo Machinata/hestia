@@ -5,17 +5,15 @@
 	import { messages } from '$lib/i18n';
 	import 'clerk-sveltekit/client';
 	import SignOutButton from 'clerk-sveltekit/client/SignOutButton.svelte';
-	import { Cog, LogOut, MessageCircleMore, UsersRound } from 'lucide-svelte';
+	import { Cog, LogOut, Menu, MessageCircleMore, UsersRound } from 'lucide-svelte';
 	import type { Snippet } from 'svelte';
 	import { onMount } from 'svelte';
-	import type { LayoutData } from './$types';
 
 	type Props = {
 		children: Snippet;
-		data: LayoutData;
 	};
 
-	let { children, data }: Props = $props();
+	let { children }: Props = $props();
 
 	let clerk;
 
@@ -45,22 +43,17 @@
 			}
 		}
 	});
-
-	let message = $derived(messages.nav_greeting({ name: data.user.name }));
 </script>
 
 {#snippet userMenu()}
 	<div class="dropdown dropdown-end">
-		<div tabindex="0" role="button" class="btn btn-circle btn-primary btn-sm ring">
-			<div class="avatar placeholder online">
-				<div class="w-8 rounded-full">
-					{#if data.user.hasImage}
-						<img src={data.user.imageUrl} alt="Avatar" />
-					{:else}
-						<span>{data.user.name.at(0)}</span>
-					{/if}
-				</div>
-			</div>
+		<div
+			tabindex={0}
+			role="button"
+			class="btn btn-primary btn-md flex items-center gap-2 text-lg"
+		>
+			<Menu />
+			Menu
 		</div>
 		<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 		<ul
@@ -106,8 +99,7 @@
 			<h1 class="prose prose-2xl">Svelte</h1>
 		{/snippet}
 		{#snippet end()}
-			<div class="flex items-center gap-3">
-				<p class="prose prose-lg">{message}</p>
+			<div class="flex items-center gap-4 pr-2">
 				{@render userMenu()}
 			</div>
 		{/snippet}
