@@ -16,20 +16,18 @@
 	let configs = $derived(form?.configs ?? data.configs);
 </script>
 
-<div class="page">
-	<div class="card w-full max-w-xl bg-base-200 px-4 pt-4 shadow-xl">
-		<div class="card-title justify-center">
-			<h2 class="text-2xl font-semibold">{messages.settings_title()}</h2>
-			{#if form?.error}
-				<div role="alert" class="alert alert-error absolute -top-20">
-					<i class="fi fi-bs-octagon-xmark h-6 w-6 shrink-0"></i>
-					<span>{form.error}</span>
-				</div>
-			{/if}
+<div class="flex flex-col items-stretch justify-around">
+	<h2 class="text-center text-2xl font-semibold">{messages.settings_title()}</h2>
+	{#if form?.error}
+		<div role="alert" class="alert alert-error">
+			<i class="fi fi-bs-octagon-xmark h-6 w-6 shrink-0"></i>
+			<span>{form.error}</span>
 		</div>
-		<form id="sms" method="POST" use:enhance>
-			<div class="card-body">
-				<Divider />
+	{/if}
+	<Divider />
+	<form id="sms" method="POST" use:enhance>
+		<div class="mx-auto flex w-1/3 flex-col gap-4">
+			<div class="flex flex-col gap-2">
 				<!-- Twilio -->
 				<h2 class="text-2xl font-semibold">{messages.settings_category_twilio()}</h2>
 				<TextInput
@@ -76,15 +74,7 @@
 					{/snippet}
 				</TextInput>
 			</div>
-			<div class="card-actions justify-center px-8 pb-4">
-				<Button type="submit" variant="outline" full>{messages.settings_save()}</Button>
-			</div>
-		</form>
-	</div>
+			<Button type="submit" variant="outline" full>{messages.settings_save()}</Button>
+		</div>
+	</form>
 </div>
-
-<style>
-	.page {
-		@apply flex flex-col items-center justify-around gap-24 py-[10%];
-	}
-</style>

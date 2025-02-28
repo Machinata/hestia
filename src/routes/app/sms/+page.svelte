@@ -9,6 +9,7 @@
 	import { messages } from '$lib/i18n';
 	import { CircleX, MessageCircleMore, TriangleAlert } from 'lucide-svelte';
 	import type { ActionData, PageData } from './$types';
+	import Divider from '$lib/components/Layout/Divider.svelte';
 
 	type Props = {
 		data: PageData;
@@ -22,7 +23,7 @@
 	let selectedRecipients: Recipient[] = $state([]);
 </script>
 
-<div class="flex flex-col items-center gap-4">
+<div class="flex flex-col items-center">
 	{#if form?.error}
 		<Alert class="flex w-fit justify-center" status="error">
 			{#snippet icon()}
@@ -42,7 +43,8 @@
 			</span>
 		</Alert>
 	{/if}
-	<h2 class="text-4xl font-semibold">{messages.sms_prompt()}</h2>
+	<h2 class="text-2xl font-semibold">{messages.sms_prompt()}</h2>
+	<Divider />
 	<div class="flex justify-center gap-4">
 		<div class="flex flex-col items-center gap-2">
 			<h2 class="text-3xl font-medium">Recipients</h2>
