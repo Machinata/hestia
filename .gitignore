@@ -14,6 +14,9 @@ node_modules
 Thumbs.db
 .idea
 
+# Storybook
+storybook-static
+
 # Vite
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
