@@ -3,12 +3,15 @@
 	"version": "0.0.1",
 	"type": "module",
 	"scripts": {
+		"prepare": "husky",
 		"postinstall": "prisma generate",
 		"dev": "bun validate-env && bun database:up && bun prisma:generate && vite dev",
 		"build": "vite build",
 		"build-storybook": "storybook build",
 		"database:up": "docker compose -p hestia -f devops/docker-compose.dev.yml up -d && docker compose -p hestia -f devops/docker-compose.dev.yml -f devops/docker-compose.wait.yml run --rm wait -c hestia-database:5432 && bun prisma:push",
 		"database:down": "docker compose -p hestia -f devops/docker-compose.dev.yml down",
+		"docker:build": "docker buildx -t hestia .",
+		"docker:build-storybook": "docker buildx -t hestia-storybook -f Dockerfile.storybook .",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
@@ -26,7 +29,6 @@
 		"prisma:reset": "prisma migrate reset --force",
 		"prisma:studio": "prisma studio",
 		"prisma:validate": "prisma validate",
-		"prepare": "husky",
 		"validate-env": "bun ./scripts/validate-env.ts"
 	},
 	"devDependencies": {
@@ -42,7 +44,7 @@
 		"@storybook/svelte": "^8.5.0",
 		"@storybook/sveltekit": "^8.5.0",
 		"@storybook/test": "^8.5.0",
-		"@sveltejs/adapter-auto": "^3.0.0",
+		"@sveltejs/adapter-node": "^5.2.12",
 		"@sveltejs/kit": "^2.15.3",
 		"@sveltejs/vite-plugin-svelte": "^5.0.3",
 		"@types/bun": "^1.1.15",

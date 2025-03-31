@@ -1,7 +1,17 @@
 name: PR Gate
+
 on:
     pull_request:
-        branches: ['*']
+        branches:
+            - main
+
+concurrency:
+    group: ${{ github.workflow }}-${{ github.event.number || github.sha }}
+    cancel-in-progress: true
+
+permissions:
+    contents: read # to fetch code (actions/checkout)
+
 jobs:
     checks:
         name: Checks
@@ -24,4 +34,4 @@ jobs:
             - name: Prisma Check
               run: bun prisma:validate
             - name: Test
-              run: 'bun run test:unit'
+              run: bun run test:unit

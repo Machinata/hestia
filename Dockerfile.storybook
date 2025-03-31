@@ -1,0 +1,11 @@
+FROM oven/bun:1.2-alpine AS build
+
+WORKDIR /opt/build
+
+COPY . .
+RUN bun install --frozen-lockfile \
+  && bun run build-storybook
+
+FROM nginx:alpine3.21
+
+COPY --from=build --chown=1000:1000 /opt/build/storybook-static /usr/share/nginx/html
